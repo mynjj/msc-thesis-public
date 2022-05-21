@@ -1,0 +1,16 @@
+digraph {
+    node[shape=circle,label=""];
+    rankdir="LR";
+    F [style=filled;fillcolor=black];
+    E [style=filled]
+    H [style=filled;fillcolor=black];
+    A -> B;
+    B -> C;
+    C -> D;
+    D -> G;
+    B -> E;
+    E -> F;
+    F -> G;
+    B -> H;
+    H -> G;
+}

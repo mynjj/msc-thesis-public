@@ -1,0 +1,84 @@
+\chapter{Introduction}
+
+Large software systems are a composition of intertwined units of functionality,
+often related in complex ways. They can be developed across many years and by 
+large teams. It is no surprise that complexity arises quite easily. 
+
+It becomes progressively harder to add new features and improvements while being 
+sure that everything else works as it should. That is, that the software remains
+being correct. To tackle this complexity problem, many strategies and different 
+angles have been studied and implemented by large-scale software systems. 
+
+Automated regression testing is one of the main strategies widely adopted by industry,
+to ensure that changes to the code will not negatively affect the users of the system. 
+
+It consists on developers writing automated tests: code that executes scenarios that a user would experience
+and asserts that desired properties hold true. Afterwards, when changes to the code are done,
+executing successfully the set of automated tests gives confidence that such scenarios will
+not be impacted by the change.
+
+In practice, this is an effective technique to keep the quality of the system, and
+allow for its evolution. However, there is a drawback, as the system evolves, more
+scenarios get added and eventually it can become time-consuming to run the complete
+set of automated tests.
+
+Another challenge in software engineering consists in having an effective development process when
+working with large teams. Many strategies have also been studied, and modern industry 
+consensus is to use \emph{Continuous Integration} (CI) processes.
+
+The main idea of the CI software development process is that developers should
+integrate code changes frequently. When developers integrate their changes,
+they make other developers on the team aware of their changes. The other developers
+can then react accordingly if the change conflicts with their work.
+
+Frequently integrating changes to the product increases the risk of making mistakes.
+For that reason, as a safeguard, the set of automated tests should be run prior to
+integrating every change. The process of building and testing the code automatically
+every time a change is meant to be integrated is called a CI pipeline.
+
+By frequently integrating changes with the regression test suite backing its correctness
+we ensure quality in every small step.
+
+We can now see that having a time-consuming set of tests to execute is a relevant 
+drawback for teams that want to adopt CI practices. While on one hand, it is desired
+to automatically run tests with every small change, a sufficiently large test suite
+can take a considerable amount of time to execute.
+
+To tackle this problem, academic research and industry has focused on several angles.
+Algorithms on Test Selection and Prioritization (TSP) are techniques that aim on 
+automatically proposing a relevant sorted subset of tests to execute. These techniques
+acknowledge that it is not needed to run all the tests, instead, only
+those which would be more likely to fail first. As the goal of running a test suite is to
+avoid potential errors to be integrated to the codebase, we can give the developer 
+feedback on errors to be corrected earlier, if found earlier.
+
+For this project, TSP techniques are proposed and evaluated for one of the CI pipelines
+of the \emph{Business Central} project. \emph{Business Central} is an Enterprise Resource Planning (ERP)
+software product by Microsoft. The aim is to find an adequate technique
+for the product and to propose possible directions the product could take to improve the
+CI cycle feedback time and effectiveness.
+
+Not only is optimizing CI pipelines relevant to improve agility on software development
+processes, but it also has a positive impact in the energy resources they require.
+These pipelines are run multiple times a day, and the cost of operating the infrastructure
+required to keep the system evolving is significant.
+
+In this project, we will follow the same approach as previous research by Bertolino
+et.al. in \cite{Bertolino2020LearningtoRankVR}, transforming this problem to a \emph{ranking} problem.
+Afterwards, different \emph{Learning to Rank} algorithms will be applied, and evaluated.
+However, in contrast to their work, we use test coverage information for two different 
+parameters of how our ranking datasets are created.
+
+%In general, coverage information is not available in existing datasets
+%in academic literature.
+
+We also outline the different challenges and technical difficulties that adapting
+academic techniques posed when taking into consideration the practical realities
+of an industrial environment. 
+
+%Our results show that coverage information in this case is useful to assign priorities to
+%the training dataset of the ranking algorithms. They also show that for the pipeline under
+%study, we can reduce the amount of tests run by 60\%, which in average corresponds to
+%a 90\% improvement in test execution time. We also discuss some of the possible threats 
+%to validity of these results, along with proposals on how this approach could be used in
+%the current build system.

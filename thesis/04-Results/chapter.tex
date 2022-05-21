@@ -1,0 +1,264 @@
+\chapter{Results and Evaluation}\label{s:results}
+
+First we use the NAPFD metric as defined in section \ref{sec:bg-metrics-tsp} to compare the effectiveness of the 
+rankings for the Test Prioritization problem.
+
+In this section, we present for each ranking algorithm used, how the different criteria used influences the
+NAPFD behavior. To emphasize, the varying criteria on the experiments were:
+\begin{itemize}
+    \item Priority function used on datasets.
+    \item Usage of coverage information
+    \item Training metric used for ranking algorithms.
+    \item For MART and LambdaMART, the number of trees used.
+\end{itemize}
+
+For each algorithm, we present box plots of the distribution of this metric for some of these configurations. 
+
+Additionally, for each of these ranking algorithms, we induce selection algorithms by taking the first proposed
+results. We take the first proposed results based on the following criteria:
+\begin{itemize}
+    \item An strictly safe selection \texttt{S-SEL}: we take the first results such that for all the evaluated jobs, every 
+    test failure is included.
+    \item An above 80\% average selection \texttt{80-SEL}: the first results such that the average of its \emph{inclusiveness}
+    is at least 80\%.
+    \item An above 50\% average selection \texttt{50-SEL}: likewise, we include tests until the average inclusiveness is at least 50\%.
+\end{itemize}
+
+We obtain these selections by iterating in increments of 10\%.
+
+For a complete set of values shown in the distribution plots and more evaluation metrics, see appendix \ref{sec:appendix-evaluation-results}.
+
+\section{Coordinate Ascent}
+
+Using different training metrics did not have a large impact in the behavior of this algorithm. 
+However the highest average, and lowest variance of the NAPFD of different datasets ranked was obtained with the 
+\texttt{NDCG@30} training metric.
+
+Additionally, results show that using coverage information as part of the features characterizing a change
+results in lower values of NAPFD. However, for the coverage priority function, the NAPFD values were 
+consistently higher.
+
+The best results for this algorithm, across the different metrics were obtained by datasets that do not
+use coverage information in the features, but that use the coverage prioritization proposed. In the worst case
+for these datasets, the NAPFD of the proposed test ranking can be as low as 67\%, but as high as 99\%.
+
+Figures \ref{fig:coordinate-ascent-02-napfd} to \ref{fig:coordinate-ascent-06-napfd} show the box plot of the distribution
+of NAPFD values for the jobs in the validation dataset for the different training metrics. 
+
+Additionally, for \texttt{NDCG@30}, we present the distribution of values 
+across each different dataset of the \emph{time to first failure} in figure \ref{fig:coordinate-ascent-06-tff}. 
+
+We observe that only in the case of the dataset with coverage information and coverage prioritization, the proposed prioritization
+achieves a value as high as 88\% of the total execution time with an average of 14\%. For the remaining datasets, the first failure is detected
+at most in the first 2\% of the total execution time.
+
+Regarding the induced selections, for the training metric \texttt{NDCG@30} and \texttt{CP-CI} dataset the following results were obtained:
+\begin{itemize}
+    \item \texttt{S-SEL}: A safe selection was achieved with a selection size of 40\%, corresponding to 10\% of the execution time.
+    \item \texttt{80-SEL}: A selection with average inclusiveness over 80\% was achieved with a selection size of 40\%, corresponding to 10\% of the execution time.
+    \item \texttt{50-SEL}: A selection with average inclusiveness over 50\% was achieved with a selection size of 10\%, corresponding to 3\% of the execution time.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:coordinate-ascent-02-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-02/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{DCG@10} training metric.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:coordinate-ascent-03-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-03/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{MAP} training metric.}}
+    \end{minipage}%
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:coordinate-ascent-01-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-01/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@10} training metric.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:coordinate-ascent-04-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-04/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@20} training metric.}}
+    \end{minipage}%
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:coordinate-ascent-06-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-06/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@30} training metric.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:coordinate-ascent-06-tff}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-06/distribution-comparison-TimeToFirstFailure.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of times to first failure for the Coordinate Ascent algorithm using the \texttt{NDCG@30} training metric.}}
+    \end{minipage}%
+\end{figure}
+
+\section{LambdaMART}
+For LambdaMART, using the \texttt{MAP} metric, resulted on consistently ranking with an NAPFD value of 66\% for any of the different 
+trained datasets, as it can be seen in figure \ref{fig:lambdamart-13-napfd}. With the \texttt{ERR@10} metric, the training did not converge, resulting on an invalid model.
+
+Apart from these two metrics, the other training metrics behaved similarly across the different datasets. The best NAPFD
+value was obtained with the \texttt{DCG@10} metric.
+
+Regarding the number of trees used for gradient boosting, the best performing values were obtained with 20 trees.
+
+For this algorithm, using the coverage prioritization proposed yielded better NAPFD values. When using the exponential prioritization,
+using coverage information as features increased the NAPFD average and reduced its variance for the majority of the experiments.
+
+In figure \ref{fig:lambdamart-10-tff} we can see the comparison of distributions of \emph{time to first failure},
+for the metric \texttt{DCG@10} and 20 trees. For this configuration, the \texttt{CP-NCI} dataset,
+which performed better across configurations, yields an average NAPFD value of 86\%.
+
+The resulting induced selections are:
+\begin{itemize}
+    \item \texttt{S-SEL}: A safe selection was achieved with a selection size of 40\%, corresponding to 9\% of the execution time.
+    \item \texttt{80-SEL}: A selection with average inclusiveness over 80\% was achieved with a selection size of 40\%, corresponding to 9\% of the execution time.
+    \item \texttt{50-SEL}: A selection with average inclusiveness over 50\% was achieved with a selection size of 10\%, corresponding to 2\% of the execution time.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-13-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-13/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{MAP} training metric and 30 trees.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-01-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-01/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@10} training metric and 30 trees.}}
+    \end{minipage}%
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-02-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-02/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@10} training metric and 20 trees.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-09-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-09/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 30 trees.}}
+    \end{minipage}%
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-10-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-10/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 20 trees.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-17-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-17/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@20} training metric and 30 trees.}}
+    \end{minipage}%
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-18-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-18/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@20} training metric and 20 trees.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-21-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-21/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@30} training metric and 30 trees.}}
+    \end{minipage}%
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-22-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-22/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@30} training metric and 20 trees.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:lambdamart-10-tff}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-10/distribution-comparison-TimeToFirstFailure.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of \emph{time to first failure} values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 20 trees.}}
+    \end{minipage}%
+\end{figure}
+
+\section{MART}
+The results shows no impact on the training metric used for this algorithm. The best configuration uses 30 trees.
+
+As in the other algorithms, the dataset that provided the best results is the one using coverage information for prioritizing, but
+not using coverage information on the feature vectors.
+
+For one of the best performing configurations, we can see in figure \ref{fig:mart-09-tff} a distribution of
+the \emph{time to first failure} values. The best configurations achieved an average NAPFD value of 67\%.
+
+For such configuration, the resulting induced selection has similar values as the other algorithms:
+The resulting induced selections are:
+\begin{itemize}
+    \item \texttt{S-SEL}: A safe selection was achieved with a selection size of 40\%, corresponding to 9\% of the execution time.
+    \item \texttt{80-SEL}: A selection with average inclusiveness over 80\% was achieved with a selection size of 40\%, corresponding to 9\% of the execution time.
+    \item \texttt{50-SEL}: A selection with average inclusiveness over 50\% was achieved with a selection size of 10\%, corresponding to 2\% of the execution time.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:mart-09-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/mart-09/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the MART algorithm using the \texttt{DCG@10} training metric and 30 trees.}}
+    \end{minipage}%
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:mart-13-napfd}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/mart-13/distribution-comparison-Selection-100-NAPFD.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the MART algorithm using the \texttt{MAP} training metric and 30 trees.}}
+    \end{minipage}%
+\end{figure}
+\begin{figure}
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \label{fig:mart-09-tff}
+        \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/mart-09/distribution-comparison-TimeToFirstFailure.png}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of \emph{time to first failure} values for the MART algorithm using the \texttt{DCG@10} training metric and 30 trees.}}
+    \end{minipage}%
+\end{figure}
+
+\section{Other algorithms}
+
+We performed training of AdaRank, with 500 rounds. We varied the different considered metrics as with
+the other approaches. However, none of the resulting models converged for our dataset.
+
+Training of Rankboost was also attempted. However, as explained in section \ref{s:bg-tsp-rankboost},
+it requires at each stage to keep a distribution $D$ of memory complexity $O(n^2)$ for $n$ the number of tests
+on each CI job. With the dataset used, such memory complexity exceeded the memory capacity of even the HPC nodes 
+where the training was performed. Further work on tuning this algorithm include appropriately reducing the amount 
+of tests considered in each job execution for the training dataset.

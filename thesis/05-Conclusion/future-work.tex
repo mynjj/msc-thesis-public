@@ -1,0 +1,79 @@
+\section{Future work}
+
+\subsection{Usage of a prioritization technique in context of the existing sytem.}
+
+This work focused on an offline evaluation of the techniques, for an online implementation
+other technical challenges and practical considerations remain.
+
+So far in our discussion, we did not tie how proposing a prioritization
+with these techniques relates to how they are executed by the DME system explained
+in section \ref{s:bc-ci-dme}.
+
+In this section we outline the required changes, and possible strategies to use
+such rankings.
+
+Recall that the DME system, executes tasks from a given job, by
+traversing each of the required dependencies defined by the model of the job. 
+A single task may execute multiple test codeunits or test solutions. 
+
+Given a ranking proposed by these techniques, we can use the induced selection
+algorithm to reduce the amount of test codeunits that each of these tasks execute.
+
+Furthermore, if the selection results on \emph{job tasks} with no test codeunits to
+execute, we can remove this task, along with the dependencies that were 
+only required by this task. By doing so recursively we can remove entire paths of the
+job's execution. In general terms, this corresponds to the reachable vertices
+of these removed vertices that are not reachable by any other non removed vertex 
+on the opposite graph.
+
+For clarity, see figure \ref{f:conc-fut-dag-removingtask}, where a DAG representing the dependencies of a job 
+execution is given. Filled with black are the test tasks that after the selection
+algorithm, had no tests to execute. Filled with gray are the tasks that were only
+required for such tests, and therefore could be removed.
+
+\begin{figure}
+    \centering
+    \def\svgwidth{0.5\columnwidth}
+    \includesvg[inkscapelatex=false]{thesis/figures/network-plots/removing-tasks-model}
+    \caption{Tasks and predecessors removed from the job model.}
+    \label{f:conc-fut-dag-removingtask}
+\end{figure}
+
+This would be an effective use of the selection proposed, however engineering is required
+to allow for such dynamic changes of a job's execution. In particular, test codeunits
+are not \emph{first-class citizens} on the data model proposed by the DME, as
+it is instead responsibility of the task's implementation.
+
+For using the prioritization, other strategies can be leveraged. Since test tasks 
+can be performed in parallel by the DME, a proposed prioritization of all the 
+tests in the job can not be executed as given. 
+
+Instead, the prioritization can be used locally on each task. That is, for a given
+test task, and the overall prioritization, one can get a local prioritization for the
+tests belonging to such task. However, the engineering to allow dynamically sorting of the test 
+codeunits by the test runners is missing to implement.
+
+Finally, the current build system allows for assigning priorities to the tasks to run,
+which is taken into consideration when deciding which task to execute next from the 
+set of tasks with completed dependencies. This could be dynamically assigned based on 
+the prioritization of the tests being ran. Note that this would also require for the
+DME system to have knowledge of the tests being run by a task.
+
+\subsection{Tackling CI optimization from other angles}
+The product studied has several CI pipelines that constitute each of the different
+development cycles, from different areas that the product has. We studied a single
+optimization strategy for one these CI pipelines, namely Test Selection and Prioritization.
+
+However, different strategies exist in the literature, for instance usage of
+test suite minimization to remove superfluous tests from a codebase.
+
+Another approach could be to have learning models to predict task failure
+of each of the tasks a job is comprised from. A similar feature vector as
+obtained for this project, representing the change could be part of the training 
+data used to train a binary classifier, for which extensive research exists.
+
+\subsection{Further evaluation of prioritization techniques}
+Reducing the amount of tests considered for each job execution for our training
+dataset, would allow for a larger timespan to be considered by our evaluation.
+
+This would increase the confidence and validity on the results presented in this project.

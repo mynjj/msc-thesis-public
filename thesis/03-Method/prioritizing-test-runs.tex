@@ -1,0 +1,54 @@
+\section{Prioritizing Test Executions in a CI job}\label{s:method-prioritizing-testruns}
+
+As part of our training dataset for the ranking algorithms, we need to associate a ranking
+to each of the tests executed in a job. This ranking is what we desire the algorithm to 
+learn. This is the process commonly referred to as \emph{dataset labeling} in the context of ML.
+
+It is worth emphasizing that this prioritization is not the one against the results
+will be evaluated, as this would be biased. The evaluation will be given only by the 
+TSP metrics presented in section \ref{sec:bg-metrics-tsp}.
+
+A ranking can be defined by a priority function (also called relevance function): when each 
+test case is assigned a priority, this value can be used to produce a ranking where such 
+priority values are in increasing order.
+
+We outline two different approaches taken to assign priority functions.
+
+\subsection{Failure and Duration decreasing exponential priority}
+
+In \cite{Bertolino2020LearningtoRankVR} they propose a priority function for each test case, based on its duration and outcome.
+They define a score for the $i$-th test case $R_i$ by:
+\begin{align*}
+R_i = F_i + e^{-T_i}
+\end{align*}
+
+Where $F_i = 1$ if the test fails, and $0$ otherwise, and $T_i$ the duration of its execution.
+
+By design, this score ranks first failing tests and breaks ties via their execution duration.
+We also notice something else, by this being an exponentially decreasing function, changes
+in duration have a larger effect for tests with small duration, than test executions with
+large duration.
+
+\subsection{Coverage discrete priorities}\label{s:method-prioritizingtestcases}
+We propose a discrete priority function using coverage information. 
+
+Given the $i$-th test, we define $L_i$ as the amount of lines covered by it.
+
+For a given job executing a subset of tests $\tau$, we define $\mu_{L,\tau}$ to be the mean of
+all values $\{L_i\}_{i \in \tau}$. For such job, our proposed priority function, prioritizes
+in the following order:
+
+\begin{itemize}
+    \item Failing Tests
+    \item New or modified tests in the job
+    \item Tests that have no coverage information
+    \item Tests covering changed lines, where $L_i \ge \mu_{L,\tau}$
+    \item Tests covering changed lines, where $L_i < \mu_{L,\tau}$
+    \item Tests where $L_i \ge \mu_{L,\tau}$
+    \item Tests where $L_i < \mu_{L,\tau}$
+\end{itemize}
+
+It is worth reminding the reader, that from such given job we do not have the exact coverage information
+but the most recent, previously collected. As we described in section \ref{s:method-collecting-dataset}.
+
+We created training datasets with both of these priority functions.

@@ -1,0 +1,21 @@
+\section{Outline}
+
+In the existing research, datasets have been constructed focusing on test run properties 
+and results. For instance, Spieker in \ref{DBLP:journals/corr/abs-1811-04122} worked on ??. 
+And Bertolino et. al. in \ref{Bertolino2020LearningtoRankVR} evaluate their algorithms 
+by constructing a dataset from the Apache Commons projects commit history.
+
+In section \ref{s:method-collecting-dataset}, we describe how we obtained the information
+from the \emph{Business Central} build system, along with the required changes to collect 
+coverage information.
+
+In section \ref{s:method-characterizing-testruns}, we describe how we obtain features for
+the collected changes and test runs. These features are used to numerically represent a 
+test run in a CI job, for them to be input of the ranking algorithms.
+
+Afterwards, in section \ref{s:method-prioritizing-testruns}, we describe how we label
+the training dataset. That is, the different criteria used to assign priorities to
+the given tests.
+
+Finally, in section \ref{s:method-training-models}, we describe the training of the 
+different ranking models, with different datasets.

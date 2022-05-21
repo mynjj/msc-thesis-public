@@ -1,0 +1,27 @@
+\section{Threats to validity}\label{s:conclusion-threats}
+
+The most relevant threat to validity of our results is a biased dataset.
+
+As explained in section \ref{s:method-collecting-dataset}, the dataset was 
+collected over a week period. Also, as previously explained, the size of 
+the collected dataset and test suite restricted how much data we could process.
+
+Among some of the reasons that could have biased the evaluation, is that
+a week is a short time to be representative of the overall test execution dynamics.
+
+For example, a developer working on a feature may re-run the pipeline and continuously
+fail the same set of tests. Given that history features are used, the learning algorithms
+could use this as indicator of a high priority test. Which may not be true after the 
+work is done. 
+
+Another example, is the occasional test failure that went in to the main codebase,
+for instance by a failing test selection criteria. This results in subsequent CI jobs
+failing in such tests, and effectively blocking the pipeline and give invalid data points.
+On the period of time the dataset was collected this was not observed.
+
+A possible mitigation is to continuously retrain the algorithm, for which exploring
+reinforcement learning approaches could be interesting.
+
+Future work on a more robust evaluation would entail a large timespan collection of
+data, with an appropriate reduction of the dataset to be manageable by the learning 
+algorithms and feature extraction infrastructure.

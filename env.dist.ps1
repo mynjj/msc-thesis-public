@@ -1,0 +1,6 @@
+$Env:NAV_REPO_PATH = PATH\TO\NAV
+$Env:MSC_DATA_PATH = PATH\TO\DATADIR
+
+# Optional: for moving jobs that weren't succefully collected in `ci-history`
+$Env:POLLUTED_CIHISTORY_DIR = PATH\TO\POLLUTEDCIHISTORYDIR
+$Env:NO_TESTS_CIHISTORY_DIR = PATH\TO\NOTESTSCIHISTORYDIR

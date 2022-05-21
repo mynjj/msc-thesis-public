@@ -1,0 +1,48 @@
+\section{Characterizing Test Executions for a Codebase Change}\label{s:method-characterizing-testruns}
+
+For each of the collected CI jobs, we obtain features to characterize
+the changes made by the developer, for each of the executed tests in the job.
+
+In this section we explain the different kinds of information obtained to
+characterize them.
+
+\subsection{File changes}
+
+We use the following quantities to represent the changes done for each object:
+
+\begin{itemize}
+    \item Amount of new AL tables.
+    \item Amount of new AL objects.
+    \item Amount of modified AL objects.
+    \item Amount of removed AL objects.
+    \item Amount of changed tests.
+    \item Amount of non AL file changes.
+    \item Amount of added lines to AL objects.
+    \item Amount of removed lines from AL objects.
+\end{itemize}
+
+\subsection{Test history properties}
+
+For each of the tests in a job we add the following historic properties:
+
+\begin{itemize}
+    \item Proportion of times the test has failed within the available data.
+    \item From the past $k$ job executions, proportion of times the test has failed.
+    \item Average duration of this test within the available data.
+\end{itemize}
+
+\subsection{Coverage properties}
+
+Using the most recent coverage information collected previous to
+the given job, we compute:
+\begin{itemize}
+    \item The proportion of lines covered by that test in relation to the average.
+    \item The amount of files changed that were covered by that test.
+    \item The amount of lines changed that were covered by that test within different \emph{windows}.
+\end{itemize}
+
+The lines changed were not matched exactly, but by \emph{windows}. If a change on a
+line nearby was covered, it was counted for such properties. We added features for
+different windows sizes.
+
+The aim of such is to reduce the impact of having outdated coverage information.

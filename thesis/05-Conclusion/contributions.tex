@@ -1,0 +1,43 @@
+\section{Contributions}
+
+\subsection{Evaluation of the ranking algorithms.}
+
+Results for the best configurations of each algorithm induce
+promising selection sizes. The algorithm with most consistent behavior
+was Coordinate Ascent optimizing the \texttt{NDCG@30} metric.
+
+Inducing a safe selection on our dataset yielded a selection size of 40\%.
+This implies that the amount of tests executed could be reduced by more than half.
+The corresponding execution time for such selection was in average 10\% the total
+execution time from executing all the tests.
+
+While results were promising, it is relevant to note the threats to validity 
+in this project described in section \ref{s:conclusion-threats}.
+
+\subsection{Using coverage information in \emph{Learning to Rank} approaches to the Test Prioritization problem}
+
+In literature, coverage information in \emph{Learning to Rank} approaches to 
+test prioritization is not often used. With the distinction of Busjaeger in \cite{Busjaeger2016LearningFT},
+studying an industrial scenario. There is no available dataset that includes such information.
+
+The goal of comparing different configurations varying
+the information provided was to understand the effect of using coverage information.
+
+The best performing dataset across algorithms and configurations 
+consistently was the one that used the proposed discrete relevance  
+function given in \ref{s:method-prioritizingtestcases} that uses coverage information. 
+But that does not use coverage information in the features of each test case.
+
+For this pipeline, this seems to imply that coverage information is 
+useful to determine the prioritization, but the dimension complexity 
+of adding more properties related to coverage is not.
+
+\subsection{Infrastructure to produce \emph{Learning to Rank} datasets for the \emph{Business Central} pipeline.}
+
+The infrastructure to collect CI history information and related coverage information,
+as well as the extraction mechanism of features can be found in the accompanying 
+repository of this thesis project.
+
+Increasing the strength and confidence on the evaluation can be achieved by
+enhancing the dataset. This also allows for a more data-driven approach to
+do analysis on the performance on the CI pipeline.

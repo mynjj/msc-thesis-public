@@ -1,0 +1,66 @@
+\documentclass{thesis/resources/ituthesis}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{svg}
+\usepackage{calc}
+\usepackage{fancyvrb}
+
+\settitle{Optimizing a \\Continuous Integration Pipeline\\ of \emph{Business Central} using \\Test Selection and \\Prioritization Techniques}
+\setauthor{Diego Joshua Martínez Pineda}
+\setsupervisor{Mahsa Varshosaz}
+\setdate{May 2022}
+
+\begin{document}
+
+\frontmatter
+
+\thetitlepage
+\newpage
+\chapter{Acknowledgments}
+\begin{center}
+\texttt{SYN+ACK}\footnote{A TCP joke, because less people would get a UDP one.}
+\end{center}
+\newpage
+\begin{abstract}
+In this project we present the evaluation of test selection and prioritization techniques, with data 
+collected from a Continuous Integration (CI) pipeline of the \emph{Business Central} project.
+
+We reduce the test prioritization problem to a ranking problem. This is done by computing 
+properties for the given changes to the codebase and using them as input vectors to 
+different ranking algorithms. In contrast to existing research, we use different properties;
+most notably, the usage of test coverage information. 
+
+Having an effective technique for test prioritization in a project is relevant in Continuous Integration
+pipelines. Their execution can be time consuming and energy inefficient. Furthermore, these are typically executed
+multiple times per day in a large team. Speed and efficiency not only benefits the development cycles, but overall development
+costs and energy impact.
+
+Our results show that using coverage information for assigning priorities increases the effectiveness of
+the prioritization proposed. However, using coverage information as part of the feature vectors reduces
+its effectiveness and increases the variance of the results for the datasets created.
+
+Based on these results, we argue that with the proposed prioritization algorithms we would be able to reduce 
+the amount of tests that were run by 60\% using a conservative estimate of the best performing algorithm,
+which corresponds to an execution time improvement of 90\% in average. This suggests that these approaches
+are well suited for the pipeline under study.
+
+We also give an outline on how this prioritization could be integrated in different stages 
+of the existing pipeline.
+\end{abstract}
+
+\newpage
+\tableofcontents
+
+\mainmatter
+
+\input{thesis/01-Introduction/chapter}%
+\input{thesis/02-Background/chapter}%
+\input{thesis/03-Method/chapter}%
+\input{thesis/04-Results/chapter}%
+\input{thesis/05-Conclusion/chapter}%
+\input{thesis/0A-appendix/appendix}%
+
+\bibliographystyle{plain}
+\bibliography{thesis/references}
+\end{document}

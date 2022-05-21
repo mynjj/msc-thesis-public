@@ -1,0 +1,11 @@
+digraph {
+    node[shape=rectangle];
+    rankdir="LR";
+    GetChangeCommit->BuildApplicationTestsDatabase;
+    GetChangeCommit->BuildTests;
+    BuildApplicationTestsDatabase -> RunApplicationTests;
+    BuildTests -> RunApplicationTests;
+    BuildTests -> RunSystemTests;
+    RunSystemTests -> Finish;
+    RunApplicationTests -> Finish;
+}

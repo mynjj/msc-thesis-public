@@ -1,0 +1,60 @@
+\section{Collecting the dataset of CI executions}\label{s:method-collecting-dataset}
+
+As initial step of our project, we collect information about the CI executions
+from data stored by the DME build system and history of the repository.
+
+For each CI job, the information extracted was:
+\begin{itemize}
+    \item Execution model with the tasks that the DME system used as input.
+    \item Job execution properties: duration, result, and date.
+    \item For each of the tasks executed by the job, information on properties: duration, result, and date.
+    \item Other metainformation to identify the job in the VCS.
+    \item For each of the \emph{application test} tasks, the result of each procedure run for each of the test units considered, along with information on duration of it's execution.
+    \item Comparison with last merge from the target branch: path and directories where changes were made, type of changes performed, and the content of modified files.
+\end{itemize}
+
+The aim was to collect enough properties to represent the changes a developer made
+with respect to different properties of the codebase for each test. Along with data to evaluate 
+the prioritized tests.
+
+\subsection{Coverage information for test runners}\label{s:method-collecting-coverage}
+
+The information listed in the previous section was collected from real operation data
+of the pipeline. As explained in section \ref{sec:app-tests-al}, there are two different
+implementations of test runners that the tasks may use.
+
+As explained in section \ref{s:bg-bc-coverage}, in the current pipeline, tests ran with the \emph{CAL test runner}
+do have coverage information. However that is not the case for tests that use the \emph{AL test runner}.
+
+A full coverage report for all the application tests was not initially available. However, as 
+part of this project, modifications to the \emph{AL test runner} were done to allow 
+for collecting the same kind of information\footnote{The changes done were based on 
+previous work by Nikola Kukrika (nikolak@microsoft.com)}. However, these changes were not 
+integrated to the pipeline. Instead the changes made to the test runner were run against snapshots of 
+the codebase in a given time.
+
+It has been discussed previously in research how coverage information may be
+outdated and hard to maintain \ref{Bertolino2020LearningtoRankVR}. This is 
+partly true in our case as well, however, we acknowledge that the information 
+given by coverage can be valuable for our problem.
+
+In \ref{Busjaeger2016LearningFT} a more robust approach to use coverage information is proposed, by defining
+a coverage score. A feature like coverage score, mitigates for the lack of accuracy 
+of the coverage information. As an additional mitigation to this problem we introduce
+windows to compute such coverage scores as it will be shown in \ref{s:method-characterizing-testruns}.
+
+\subsection{The collection process}
+
+As a general overview, over roughly a week period, real CI jobs in this pipeline were collected. And 
+sporadically between these jobs, custom jobs were executed with the required changes
+to the \emph{AL test runner} to collect coverage information. 
+
+For the results presented in this work, two of these coverage collecting jobs were 
+executed and retrieved, and 172 CI jobs were collected.
+
+Whenever coverage information is required to compute the features of a given CI job,
+the coverage information used will be the closest earlier collected one.
+
+The scale of the collected information limited the amount of jobs we were able to
+collect.\footnote{The information on CI job executions amounted to 6GB of data and 
+the coverage data to 44GB. }

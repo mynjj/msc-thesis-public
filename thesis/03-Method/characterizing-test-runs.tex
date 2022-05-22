@@ -1,9 +1,9 @@
-\section{Characterizing Test Executions for a Codebase Change}\label{s:method-characterizing-testruns}
+\section{Representing tests and codebase changes by a vector}\label{s:method-characterizing-testruns}
 
 For each of the collected CI jobs, we obtain features to characterize
 the changes made by the developer, for each of the executed tests in the job.
 
-In this section we explain the different kinds of information obtained to
+In this section, we explain the different kinds of information obtained to
 characterize them.
 
 \subsection{File changes}
@@ -16,7 +16,7 @@ We use the following quantities to represent the changes done for each object:
     \item Amount of modified AL objects.
     \item Amount of removed AL objects.
     \item Amount of changed tests.
-    \item Amount of non AL file changes.
+    \item Amount of non-AL file changes.
     \item Amount of added lines to AL objects.
     \item Amount of removed lines from AL objects.
 \end{itemize}
@@ -27,7 +27,7 @@ For each of the tests in a job we add the following historic properties:
 
 \begin{itemize}
     \item Proportion of times the test has failed within the available data.
-    \item From the past $k$ job executions, proportion of times the test has failed.
+    \item From the past $k$ job executions, the proportion of times the test has failed.
     \item Average duration of this test within the available data.
 \end{itemize}
 
@@ -36,13 +36,16 @@ For each of the tests in a job we add the following historic properties:
 Using the most recent coverage information collected previous to
 the given job, we compute:
 \begin{itemize}
-    \item The proportion of lines covered by that test in relation to the average.
-    \item The amount of files changed that were covered by that test.
-    \item The amount of lines changed that were covered by that test within different \emph{windows}.
+    \item Ratio between lines covered by that test and the average.
+    \item The number of files changed that were covered by that test.
+    \item The number of lines changed that were covered by that test within different \emph{windows}.
 \end{itemize}
 
-The lines changed were not matched exactly, but by \emph{windows}. If a change on a
+The lines changed were not matched exactly but by \emph{windows}. If a change on a
 line nearby was covered, it was counted for such properties. We added features for
-different windows sizes.
+different window sizes.
 
 The aim of such is to reduce the impact of having outdated coverage information.
+
+In section \ref{s:future-evalp} we discuss some of the different features that 
+future work could consider found in the literature.

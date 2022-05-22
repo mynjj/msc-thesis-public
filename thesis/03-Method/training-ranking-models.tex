@@ -2,16 +2,16 @@
 
 We performed training of the different described ranking algorithms for each of the training 
 datasets created. For implementation, we used Ranklib 2.17. The training was performed
-with the High Performance Cluster from the IT University of Copenhagen.
+with the High-Performance Cluster from the IT University of Copenhagen.
 
 For each training performed, we varied some of the available hyperparameters and
-also varied with the training metrics presented in \ref{s:bg-rnk-metrics}. 
+also varied with the training metrics presented in section \ref{s:bg-rnk-metrics}. 
 
 Additionally, for algorithms based on regression trees like MART and LambdaMART, we varied
 the number of trees for gradient boosting.
 
-We varied the results to get the best performing configuration for each
-approach as it will be presented in chapter \ref{s:results}.
+We varied the training parameters to get the best performing configuration for each
+approach as will be presented in chapter \ref{s:results}.
 
 As explained in previous sections, we produced different datasets changing the prioritization
 criteria and the features that describe each change. As means of identification for evaluation, 
@@ -24,24 +24,25 @@ we name them as described in table \ref{f:table-naming-datasets}.
         \hline
         \textbf{Dataset name} & \textbf{Prioritization} & \textbf{Features of each test} \\
         \hline
-        \parbox{0.12\textwidth}{EP-NCI} & \parbox{0.30\textwidth}{Decreasing exponential as in \cite{Bertolino2020LearningtoRankVR}} & \parbox{0.40\textwidth}{Every feature described in section \ref{s:method-characterizing-testruns} except coverage related} \\
+        \parbox{0.12\textwidth}{EP-NCI} & \parbox{0.30\textwidth}{Decreasing exponential as in \cite{Bertolino2020LearningtoRankVR}} & \parbox{0.40\textwidth}{Every feature in section \ref{s:method-characterizing-testruns} except coverage related} \\
         \hline
-        \parbox{0.12\textwidth}{EP-CI} & \parbox{0.30\textwidth}{Decreasing exponential as in \cite{Bertolino2020LearningtoRankVR}} & \parbox{0.40\textwidth}{Every feature described in section \ref{s:method-characterizing-testruns}} \\
+        \parbox{0.12\textwidth}{EP-CI} & \parbox{0.30\textwidth}{Decreasing exponential as in \cite{Bertolino2020LearningtoRankVR}} & \parbox{0.40\textwidth}{Every feature in section \ref{s:method-characterizing-testruns}} \\
         \hline
-        \parbox{0.12\textwidth}{CP-NCI} & \parbox{0.30\textwidth}{Coverage based as described in section \ref{s:method-prioritizingtestcases}} & \parbox{0.40\textwidth}{Every feature described in section \ref{s:method-characterizing-testruns} except coverage related} \\
+        \parbox{0.12\textwidth}{CP-NCI} & \parbox{0.30\textwidth}{Coverage based as described in section \ref{s:method-prioritizingtestcases}} & \parbox{0.40\textwidth}{Every feature in section \ref{s:method-characterizing-testruns} except coverage related} \\
         \hline
-        \parbox{0.12\textwidth}{CP-CI} & \parbox{0.30\textwidth}{Coverage based as described in section \ref{s:method-prioritizingtestcases}} & \parbox{0.40\textwidth}{Every feature described in section \ref{s:method-characterizing-testruns}} \\
+        \parbox{0.12\textwidth}{CP-CI} & \parbox{0.30\textwidth}{Coverage based as described in section \ref{s:method-prioritizingtestcases}} & \parbox{0.40\textwidth}{Every feature in section \ref{s:method-characterizing-testruns}} \\
         \hline
     \end{tabular} }
-    \caption{Naming of the different datasets trained.}
+    \caption{Naming of the different datasets created.}
     \label{f:table-naming-datasets}
 \end{table}
 
 Each of these datasets consisted of 172 queries corresponding to the collected CI jobs, from which 20\% 
 of the failing test jobs were used as the validation dataset. Each of these queries
-contained around 18000 tests.
+contains around 18000 tests.
 
-It is worth comparing the size of this dataset with the provided datasets from literature.
-In \cite{DBLP:journals/corr/abs-1811-04122} the largest dataset consists of 180 cycles
-with an average of 65 tests each. In \cite{Bertolino2020LearningtoRankVR} the
-largest dataset consists of 522 cycles with an average of 22 tests each.
+It is worth comparing the size of this dataset with the provided datasets from the literature.
+In \cite{DBLP:journals/corr/abs-1811-04122} the \emph{Paint Control} dataset consists of 180 cycles
+with an average of 65 tests each.  In \cite{Bertolino2020LearningtoRankVR} their dataset consists 
+of 522 cycles with an average of 22 tests each, which they created from the Apache Commons projects 
+commit history.

@@ -1,17 +1,17 @@
 \chapter{Conclusion}
 
-In this project we created different test prioritization datasets with 
+In this project, we created different test prioritization datasets with 
 information collected from the CI pipeline of \emph{Business Central}. These datasets included
 different features to represent changes to a codebase and criteria to prioritize tests.
 
 With these datasets, different ranking algorithms were trained and evaluated. We
 found that the best performing and most consistent approach was Coordinate Ascent
 with the training metric \texttt{NDCG@30}. The induced \emph{safe} selection with
-this approach reduces the amount of tests executed by 60\%, and their execution time 
+this approach reduces the number of tests executed by 60\%, and their execution time 
 by 90\%.
 
 In contrast to existing approaches to the problem using \emph{Learning to Rank},
-we use coverage information. We found that the best performing dataset
+we use coverage information. We found that the best-performing dataset
 used coverage for prioritizing the training dataset. 
 
 Existing datasets in research for this problem do not include 
@@ -24,7 +24,7 @@ repository of this project.
 
 Such tooling can be used to increase the strength and confidence on the 
 evaluation here presented by adding more samples and extending 
-the timespan from which the dataset is collected. 
+the time span from which the dataset is collected. 
 
 Having a data model for the changes a developer makes in a codebase increases
 the insight that can be obtained for future analysis of this CI pipeline.

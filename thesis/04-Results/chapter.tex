@@ -1,10 +1,10 @@
 \chapter{Results and Evaluation}\label{s:results}
 
-First we use the NAPFD metric as defined in section \ref{sec:bg-metrics-tsp} to compare the effectiveness of the 
+First, we use the NAPFD metric as defined in section \ref{sec:bg-metrics-tsp} to compare the effectiveness of the 
 rankings for the Test Prioritization problem.
 
-In this section, we present for each ranking algorithm used, how the different criteria used influences the
-NAPFD behavior. To emphasize, the varying criteria on the experiments were:
+In this section, we present for each ranking algorithm used, how the different criteria used influence the
+NAPFD behavior. To emphasize, the varying criteria for the experiments were:
 \begin{itemize}
     \item Priority function used on datasets.
     \item Usage of coverage information
@@ -26,19 +26,20 @@ results. We take the first proposed results based on the following criteria:
 
 We obtain these selections by iterating in increments of 10\%.
 
-For a complete set of values shown in the distribution plots and more evaluation metrics, see appendix \ref{sec:appendix-evaluation-results}.
+For a complete set of values shown in the distribution plots and more evaluation metrics, see appendix \ref{sec:appendix-evaluation-results}
+and the evaluation data provided in the accompanying repository.
 
 \section{Coordinate Ascent}
 
-Using different training metrics did not have a large impact in the behavior of this algorithm. 
-However the highest average, and lowest variance of the NAPFD of different datasets ranked was obtained with the 
+Using different training metrics did not have a large impact on the behavior of this algorithm. 
+However, the highest average and lowest variance of the NAPFD of different datasets ranked was obtained with the 
 \texttt{NDCG@30} training metric.
 
 Additionally, results show that using coverage information as part of the features characterizing a change
 results in lower values of NAPFD. However, for the coverage priority function, the NAPFD values were 
 consistently higher.
 
-The best results for this algorithm, across the different metrics were obtained by datasets that do not
+The best results for this algorithm, across the different metrics, were obtained by datasets that do not
 use coverage information in the features, but that use the coverage prioritization proposed. In the worst case
 for these datasets, the NAPFD of the proposed test ranking can be as low as 67\%, but as high as 99\%.
 
@@ -46,7 +47,7 @@ Figures \ref{fig:coordinate-ascent-02-napfd} to \ref{fig:coordinate-ascent-06-na
 of NAPFD values for the jobs in the validation dataset for the different training metrics. 
 
 Additionally, for \texttt{NDCG@30}, we present the distribution of values 
-across each different dataset of the \emph{time to first failure} in figure \ref{fig:coordinate-ascent-06-tff}. 
+across each different dataset of the \emph{time to first the failure} metric in figure \ref{fig:coordinate-ascent-06-tff}. 
 
 We observe that only in the case of the dataset with coverage information and coverage prioritization, the proposed prioritization
 achieves a value as high as 88\% of the total execution time with an average of 14\%. For the remaining datasets, the first failure is detected
@@ -108,8 +109,8 @@ Regarding the induced selections, for the training metric \texttt{NDCG@30} and \
 \end{figure}
 
 \section{LambdaMART}
-For LambdaMART, using the \texttt{MAP} metric, resulted on consistently ranking with an NAPFD value of 66\% for any of the different 
-trained datasets, as it can be seen in figure \ref{fig:lambdamart-13-napfd}. With the \texttt{ERR@10} metric, the training did not converge, resulting on an invalid model.
+For LambdaMART, using the \texttt{MAP} metric, consistently ranked with a NAPFD value of 66\% for any of the different 
+trained datasets, as it can be seen in figure \ref{fig:lambdamart-13-napfd}. With the \texttt{ERR@10} metric, the training did not converge, resulting in an invalid model.
 
 Apart from these two metrics, the other training metrics behaved similarly across the different datasets. The best NAPFD
 value was obtained with the \texttt{DCG@10} metric.
@@ -119,7 +120,7 @@ Regarding the number of trees used for gradient boosting, the best performing va
 For this algorithm, using the coverage prioritization proposed yielded better NAPFD values. When using the exponential prioritization,
 using coverage information as features increased the NAPFD average and reduced its variance for the majority of the experiments.
 
-In figure \ref{fig:lambdamart-10-tff} we can see the comparison of distributions of \emph{time to first failure},
+In figure \ref{fig:lambdamart-10-tff} we can see the comparison of distributions of \emph{time to the first failure},
 for the metric \texttt{DCG@10} and 20 trees. For this configuration, the \texttt{CP-NCI} dataset,
 which performed better across configurations, yields an average NAPFD value of 86\%.
 
@@ -206,18 +207,18 @@ The resulting induced selections are:
         \centering
         \label{fig:lambdamart-10-tff}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-10/distribution-comparison-TimeToFirstFailure.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of \emph{time to first failure} values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 20 trees.}}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of \emph{time to the first failure} values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 20 trees.}}
     \end{minipage}%
 \end{figure}
 
 \section{MART}
-The results shows no impact on the training metric used for this algorithm. The best configuration uses 30 trees.
+The results show no significant impact on the training metric used for this algorithm. The best configuration uses 30 trees.
 
 As in the other algorithms, the dataset that provided the best results is the one using coverage information for prioritizing, but
 not using coverage information on the feature vectors.
 
 For one of the best performing configurations, we can see in figure \ref{fig:mart-09-tff} a distribution of
-the \emph{time to first failure} values. The best configurations achieved an average NAPFD value of 67\%.
+the \emph{time to the first failure} values. The best configurations achieved an average NAPFD value of 67\%.
 
 For such configuration, the resulting induced selection has similar values as the other algorithms:
 The resulting induced selections are:
@@ -248,7 +249,7 @@ The resulting induced selections are:
         \centering
         \label{fig:mart-09-tff}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/mart-09/distribution-comparison-TimeToFirstFailure.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of \emph{time to first failure} values for the MART algorithm using the \texttt{DCG@10} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of \emph{time to the first failure} values for the MART algorithm using the \texttt{DCG@10} training metric and 30 trees.}}
     \end{minipage}%
 \end{figure}
 
@@ -257,8 +258,7 @@ The resulting induced selections are:
 We performed training of AdaRank, with 500 rounds. We varied the different considered metrics as with
 the other approaches. However, none of the resulting models converged for our dataset.
 
-Training of Rankboost was also attempted. However, as explained in section \ref{s:bg-tsp-rankboost},
+Training of RankBoost was also attempted. However, as explained in section \ref{s:bg-tsp-rankboost},
 it requires at each stage to keep a distribution $D$ of memory complexity $O(n^2)$ for $n$ the number of tests
 on each CI job. With the dataset used, such memory complexity exceeded the memory capacity of even the HPC nodes 
-where the training was performed. Further work on tuning this algorithm include appropriately reducing the amount 
-of tests considered in each job execution for the training dataset.
+where the training was performed.

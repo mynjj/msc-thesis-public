@@ -1,15 +1,14 @@
 \section{Test Selection and Prioritization techniques}\label{s:tsp-tech}
 
 Test Selection and Prioritization techniques have a large body of knowledge,
-result of extensive focus from both academy and industry.
+the result of extensive focus from both academy and industry.
 
 In this context, the problem of test selection is defined as: given a change
 to the codebase, and a complete set of tests. Obtain a subset of tests,
 such that the capacity of fault detection of the test suite is not lost, i. e.
-if for such change, the test suite execution results on a failure, this subset
+if for such change, the test suite execution results in failure, this subset
 of tests should fail as well. A stronger condition is given by a \emph{safe} 
-selection algorithm, which requires that every failing test case for a given 
-change to be included in the resulting selection.
+selection algorithm, which requires that every failing test case to be included in the selection.
 
 The problem of test prioritization has the same inputs, and it aims to find a
 sorting for the tests to be executed that prioritizes running the tests that
@@ -17,33 +16,33 @@ are more likely to fail first.
 
 Intuitively our aim in this problem is that given a change in the codebase,
 and a complete test suite to execute. Determine a subset (selection) that
-does not miss any fault revealing test case, and a sorting (prioritization)
+does not miss any fault-revealing test case, and a sorting (prioritization)
 that increases the probability of failing first.
 
 It is worth emphasizing that given a prioritization technique, we can induce
 selection techniques by selecting the first prioritized tests. The size of
-such selection could be determined by a given size, duration or other criteria.
+such selection could be determined by a given size, duration, or other criteria.
 This is how we obtain the selections evaluated in section \ref{s:results}.
 
 \subsection{Related work}
 \label{sec:bg-tsp-related-work}
 
 Yoo and Harman in their survey \cite{Yoo2012RegressionTM} present a detailed overview of techniques in the problems of
-regression test selection, prioritization and minimization\footnote{Minimization is a problem not dealt in this project, it consists on removing superfluous tests from a test suite}.
+regression test selection, prioritization, and minimization\footnote{Minimization is a problem not dealt with in this project, it consists of removing superfluous tests from a test suite}.
  In this survey, several foundational works on this area are presented, formal definitions, and metrics to evaluate this problem.
 
-It is also worth noting, similar techniques found in the literature to the already 
+It is also worth mentioning the similar techniques found in the literature to the already 
 existing selection technique in \emph{Business Central}. As explained in section \ref{sec:bg-bc-test-selection-currently}
 the CI pipeline of interest of the product collects coverage information for some subset of test tasks.
-Using the information of which files were changed by the developer, and the coverage information
+Using the information of which files were changed by the developer and the coverage information
 for each test \emph{codeunit}, a selection is proposed. 
 
 This intuitive approach aims to select \emph{modification-traversing} tests \cite{536955}, 
-this was one of the first approaches studied by Rothermel, and Harrold, and widely studied by many others.
+this was one of the first approaches studied by Rothermel and Harrold, and widely studied by many others.
 The approaches differ in how a test is determined to be \emph{modification-traversing}, 
-As some approaches use Control Flow Graphs \cite{366926}, others use execution traces (Vokolos and Frankl in \cite{Vokolos1997PythiaAR})
+as some approaches use Control Flow Graphs \cite{366926}, others use execution traces (Vokolos and Frankl in \cite{Vokolos1997PythiaAR})
 and some others use coverage information. Like the work of Beszédes et. al. \cite{Beszdes2012CodeCR}, where they
-describe populating a coverage database for the C++ components of the WebKit project,
+describe populating a coverage database for the C++ components of the WebKit project
 and identify the changed modules from a given revision.
 
 As a starting point for this project, we reviewed the survey by Pan, et. al. \cite{Pan2021TestCS} as 
@@ -51,37 +50,37 @@ such survey focused specifically on Selection and Prioritization and techniques 
 Machine Learning (ML). We initially aimed to find approaches using Reinforcement Learning,
 as online learning could be beneficial for this use case. In this area, we find the case of
 Speiker et. al. in \cite{DBLP:journals/corr/abs-1811-04122}, where a reinforcement learning agent is proposed using only
-history on failure and duration of previous iterations.
+history of failure and duration of previous iterations.
 
-This leads us to a publication which was the main inspiration and outlined our approach:
+This leads us to a publication that was the main inspiration and outlined our approach:
 the proposal by Bertolino et. al. in \cite{Bertolino2020LearningtoRankVR}, where they do a
 more thorough comparison of the effectiveness of Reinforcement Learning approaches, and
 approaches using ranking algorithms.
 
 Another similar approach is given by Busjaeger and Xie in \cite{Busjaeger2016LearningFT}, where they evaluate 
-applying learning algorithms in the case of Salesforce. We highlight that for the features representing
-the changes a developer made, they use coverage information. In particular the idea of coverage score, to 
-reduce the impact of outdated coverage information which is a reality in large scale environments such
+applying a ranking algorithm for prioritization in the case of Salesforce. We highlight that for the features representing
+the changes a developer made, they use coverage information. In particular, they propose a coverage score, to 
+reduce the impact of outdated coverage information, which is a reality in large scale environments such
 as \emph{Business Central}.
 
 \subsection{Ranking algorithms}
 
 As explained in section \ref{sec:bg-tsp-related-work}, previous research has 
 focused on interpreting the problem of test prioritization as a \emph{ranking} 
-problem. In this section we give a brief overview of this problem, algorithms proposed
-to tackle them. In particular, the techniques we will focus on for this project
+problem. In this section, we give a brief overview of this problem, and the algorithms proposed
+for it. In particular, the techniques we will focus on for this project
 and how we will interpret the problem of Test Prioritization as an instance
 of a ranking problem.
 
 In the context of Information Retrieval, the goal of the ranking problem is to obtain relevant resources
 from a potentially large collection of them for a given information need (query). 
-Ranking algorithms are relevant in different problems. Examples of systems using them are search engines, or 
+Ranking algorithms are relevant to different problems. Examples of systems using them are search engines, or 
 recommender systems.
 
 The ranking problem has been extensively studied as it is fundamental for dealing with the
 information overload that working with computer systems creates.
 
-An approach that has been subject of extensive research in recent years is \emph{Learning to rank},
+An approach that has been the subject of extensive research in recent years is \emph{Learning to rank},
 a set of ML techniques whose goal is to obtain a \emph{ranking model} out of
 training data. This model is reused when new queries to the system are given,
 with the goal of ranking new unseen queries in a similar way as the training data.
@@ -92,13 +91,14 @@ sorted according to some relevance criterion.
 
 In the case of CI cycle optimization with Test Prioritization, we interpret the query $q$ as the
 change the developer wants to commit to the target branch. The set of documents $D$ corresponds to
-the complete test suite of the product. Our relevance criterion corresponds to sorting the
-failing tests first (if any) and the rest of the tests can be sorted through a different criteria
+the complete test suite. Our relevance criterion corresponds to sorting the
+failing tests first (if any) and the rest of the tests can be sorted through different criteria
 like duration or test coverage as we will explain in section \ref{s:method-prioritizing-testruns}.
 
 With this interpretation of the Test Prioritization problem, there is still freedom 
-of interpretation in two aspects: the representation of the query $q$ for a given codebase change, and the 
-relevance criterion to use. These will be subject of our experiments as explained in section \ref{s:method}.
+in two aspects: the representation of the query $q$ for a given codebase change, and the 
+relevance criterion to use. We will vary these parameters as part of our experiments 
+as explained in chapter \ref{s:method}.
 
 We will first describe the different metrics that are used in the ranking literature, and then
 give a brief overview of the different ranking algorithms used for completeness.
@@ -109,9 +109,6 @@ rankings proposed by these algorithms. Note that these metrics in our context ar
 training and not for evaluating the proposed rankings. This is because it is more meaningful
 to evaluate with metrics specific to the desired features of the Test Prioritization problem.
 We will further expand on metrics used for evaluation in section \ref{sec:bg-metrics-tsp}.
-
-The relationship of metrics used for training and its effect on Test Prioritization metrics is
-also subject of our experiments as it will be described in chapter \ref{s:method}. 
 
 A common metric used to evaluate ranking algorithms is the Discounted Cumulative Gain (DCG).
 \texttt{DCG@k} is defined for $k$ the truncation level as:
@@ -125,24 +122,23 @@ values encountered later are penalized by $\log(i+1)$.
 The truncation level just limits the considered documents for this metric.
 
 \texttt{NDCG@k} is the Normalized version of \texttt{DCG@k}, to do so it compares against
-the ideal ranking for that query and computes its corresponding \texttt{DCG@k}, lets
+the ideal ranking for that query and computes its corresponding \texttt{DCG@k}, let us
 call it $IDCG@k$:
 
 \begin{align*}
 NDCG@k = \frac{DCG@k}{IDCG@k}
 \end{align*}
 
-\texttt{ERR@k} 
+TODOO: Add discussion on \texttt{ERR@k} 
 
-\texttt{MAP}
 The Mean Average Precision (MAP) is based on binary classification metrics. Traditionally
 precision and recall are widely used for binary classification. In the context of
 Information Retrieval, \emph{precision} refers to how many documents marked as relevant
 are relevant by our prediction, \emph{recall} refers to how many of the relevant documents
 were retrieved from all the relevant documents in the query. 
 
-The average precision ($\text{AveP}$) represent the area under the curve of a precision-recall
-plot, when considering the first ranked elements:
+The average precision ($\text{AveP}$) represents the area under the curve of a precision-recall
+plot when considering the first ranked elements:
 \begin{align*}
 \text{AveP} = \sum_{k=1}^{n} P(k)|R(k)-R(k-1)|
 \end{align*}
@@ -152,9 +148,11 @@ Where $P(k), R(k)$ are the precision and recall obtained for the first $k$ resul
 While our proposed prioritizations to label the dataset are not binary (see section \ref{s:method-prioritizing-testruns}),
 they can be considered binary by giving a cutoff point for the assigned relevance.
 
-These are the metrics which were subject of change in the training of the
-different ranking algorithms. We will now briefly explain the different ranking algorithms
-explored.
+
+As part of our experiments described in chapter \ref{s:method}, we vary the metrics
+used to train the ranking algorithms. 
+
+We will now briefly describe the different ranking algorithms explored.
 
 \subsubsection{Coordinate Ascent}
 Coordinate Ascent is a general \textit{optimization} method, it is based on iterations defined
@@ -166,11 +164,11 @@ x^{k+1}_i = \arg \max_{t\in\mathbb{R}} f(x^{k}_1, ..., x^{k}_{i-1}, t, x^{k}_{i+
 
 This method has similar convergence conditions as gradient descent. It was first proposed as a
 ranking method by Metzler and Croft in \cite{Metzler2006LinearFM}, and it has successfully been applied
-in different ranking problems. We give a short overview of how this optimization method is used as
-a ranking method, but we refer to the above mentioned article for a detailed explanation.
+to different ranking problems. We give a short overview of how this optimization method is used as
+a ranking method, but we refer to the above-mentioned article for a detailed explanation.
 
 Among other things that differ from the traditional optimization, in \cite{Metzler2006LinearFM} they propose 
-other constrains to the scoring functions and transformations to reduce the parameter space 
+other constraints to the scoring functions and transformations to reduce the parameter space 
 being optimized to find values on a simplex.
 
 To make it more concrete, the ranking is induced by a scoring function $S$, for a document $D$ and query $Q$
@@ -183,15 +181,14 @@ S(D; Q) = \Omega \cdot f(D, Q) + Z
 For free parameters to optimize $\Omega$, the feature vector $f(D, Q)$ and a constant $Z$. The free parameters are positive 
 values such that they sum up to 1. In the ranking library used for the implementation in this project, Ranklib, $Z$ is set to zero.
 
-Notice that this scoring function is not the function being optimized, but the ranking evaluation metric used
-which will be varied on our experiments.
+Notice that this scoring function is not the function being optimized, but the ranking evaluation metric.
 
 \subsubsection{MART}
 Regression algorithms using gradient boosting were first proposed by Friedman in \cite{Friedman2001GreedyFA},
 Multiple Additive Regression Trees (MART) is a gradient boosting technique further developed by Friedman and
 Meulman in \cite{Friedman2003MultipleAR}.
 
-Again, we give a very shallow explanation, as a general introduction. We refer to the reader to the articles
+Again, we give a very shallow explanation, as a general introduction. We refer the reader to the articles
 cited above and Machine Learning literature for a more complete explanation.
 
 In general, this is a regression technique that approximates a function by minimizing some related loss 
@@ -201,20 +198,20 @@ function. The idea is to use a linear combination of $M$ different models $h_i$ 
 F(x) = \sum_{i}^M \gamma_i h_i(x)
 \end{align*}
 
-The idea is to fit a regression tree to approximate the target function, and use the next regression tree to
-approximate the residuals of the first. Afterwards greedily compute a scale for such model that minimizes
+The idea is to fit a regression tree to approximate the target function and use the next regression tree to
+approximate the residuals of the first. Afterwards, greedily compute a scale for the weak learner that minimizes
 the loss function.
 
-This residuals approximate the gradient of the loss function, effectively making this method follow the same
+These residuals approximate the gradient of the loss function, effectively making this method follow the same
 rationale as gradient descent to minimize the loss function.
 
 For \emph{pointwise} ranking algorithms, regression algorithms such as MART can be used to rank
-by regressing a relevance function for each of the documents to rank, minimizing some loss function.
-In our case, the loss functions are the different training metrics presented in section \ref{s:bg-rnk-metrics}.
+by regressing a relevance function for each of the documents to rank, minimizing some of the 
+different training metrics presented in section \ref{s:bg-rnk-metrics}.
 
 \subsubsection{LambdaMART}
-LambdaMART takes it's name from its constituents: LambdaRank and MART. In the previous section we 
-explained how MART works for general regression and for ranking.
+LambdaMART takes its name from its constituents: LambdaRank and MART. In the previous section, we 
+explained how MART works for general regression and ranking.
 
 In contrast to \emph{pointwise} algorithms that used a relevance function to produce a ranking, 
 \emph{pairwise} algorithms like LambdaMART aim to produce a comparison function between documents.
@@ -223,21 +220,21 @@ For the case of this family of algorithms, the aim is to obtain a function that 
 obtains the probability that for a given query $q$, $x_i$ is ranked with higher than $x_j$: $P_{ij}$. With 
 such a comparison function, sorting of the complete set of features can be performed.
 
-In order to do so, the trained model is a function $f$ that only takes as input a feature $x_i$, 
+To do so, the trained model is a function $f$ that only takes as input a feature $x_i$, 
 and outputs a real value $f(x_i)$. To obtain the probability of the pairwise comparison a logistic function is used:
 
 \begin{align*}
 P_{ij} = \frac{1}{1+e^{-\sigma(f(x_i)-f(x_j))}}
 \end{align*}
 
-The loss function used is the cross entropy measure. Minimizing through gradient descent is the idea behind predecessors
+The loss function used is the cross-entropy measure. Minimizing through gradient descent is the idea behind predecessors
 of this algorithm like RankNet and LambdaRank.
 
-In LambdaMART this gradient is not computed, but predicted by boosted regression trees. We refer
-to \cite{lambdamart} for a more thorough explanation of how this gradients are reduced to scalars
+In LambdaMART this gradient is not computed but predicted by boosted regression trees. We refer
+to \cite{lambdamart} for a more thorough explanation of how these gradients are reduced to scalars
 subject to learning models.
 
-The method has been successfully applied in diverse ranking applications, and in particular it performed
+The method has been successfully applied in diverse ranking applications, and in particular, it performed
 the best in the analysis given by Bertolino, et. al. in \cite{Bertolino2020LearningtoRankVR} on Test Prioritization.
 
 \subsubsection{RankBoost}\label{s:bg-tsp-rankboost}
@@ -246,7 +243,7 @@ First proposed by Freund, Yoav, et. al. in \cite{10.5555/945365.964285}. As MART
 several \emph{weak} learners into a single model.
 
 Each of these learners predicts a relevance function, and therefore a ranking. For training, a distribution $D$ over
-$X\times X$, is required. Where $X$ are the documents on a query. For this reason, this method is $O(|X|^2)$, which
+$X\times X$ is required. Where $X$ is the documents on a query. For this reason, this method is $O(|X|^2)$ in memory, which
 can restrict the applicability of this algorithm. 
 
 Each learner updates the distribution $D$, emphasizing the pairs that are more relevant for the algorithm
@@ -261,9 +258,9 @@ obtaining a model from the linear combination of several \emph{weak} learners.
 
 On each iteration, it maintains a distribution of weights assigned to each of the training queries.
 Such distribution is updated, increasing the values of the queries that the weak learner ranks the worst.
-In this way, subsequent learners can focus on those queries for next rounds.
+In this way, subsequent learners can focus on those queries for the next rounds.
 
-The weak learners they propose are linear combinations of the metric to minimize and the weight distribution.
+The weak learners they propose are linear combinations of the metrics to minimize and the weight distribution.
 
 \subsection{Metrics for evaluating Test Selection and Prioritization}
 \label{sec:bg-metrics-tsp}
@@ -281,25 +278,25 @@ this metric test suite independent a ratio is used:
     t_x = \frac{t_S}{t_C}
 \end{align*}
 
-Where $t_S$ is the time taken to execute the selection and $t_C$ the time taken to execute the complete test suite.
+Where $t_S$ is the time taken to execute the selection and $t_C$ is the time taken to execute the complete test suite.
 
 \subsubsection{Inclusiveness}
-In test selection, we do not only rely on execution time for evaluation. Consider an arbitrarily small subset selected, it would yield good results,
+In test selection, we do not only rely on the execution time for evaluation. Consider an arbitrarily small subset selected, it would yield good results,
 but potentially it could also miss some fault-revealing test cases.
 
-To take this into consideration, inclusiveness is introduced:
+To consider this, inclusiveness is introduced:
 \begin{align*}
 i = \frac{|S_F|}{|T_F|}
 \end{align*}
 
-Where $S_F$ is the set of fault revealing test cases from a selection, and $T_F$ is the set of test faults in the complete
+Where $S_F$ is the set of fault-revealing test cases from a selection, and $T_F$ is the set of test faults in the complete
 test suite. For completeness, we define $i=1$ when there are no test faults in the given change.
 
-A \emph{safe} test selection algorithm \cite{366926} always has $i = 1$. As every fault revealing test is included in the selection.
+A \emph{safe} test selection algorithm \cite{366926} always has $i = 1$. As every fault-revealing test is included in the selection.
 
 \subsubsection{Selection size}
-On the other hand, a high inclusiveness could also be a sign of over-selecting test cases. For example, selecting the whole test
-suite trivially has $i=1$. To have a measure for how big the selection is, \emph{selection size} was proposed:
+On the other hand, high inclusiveness could also be a sign of over-selecting test cases. For example, selecting the whole test
+suite trivially has $i=1$. To have a measure how big the selection is, \emph{selection size} was proposed:
 
 \begin{align*}
     ss = \frac{|S|}{|T|}
@@ -307,8 +304,8 @@ suite trivially has $i=1$. To have a measure for how big the selection is, \emph
 
 A good selection algorithm strives for having a small selection size, while high inclusiveness.
 
-\subsubsection{Time to first failure}
-Likewise, another time related metric of interest for prioritization is the time it takes to reach the first failure:
+\subsubsection{Time to the first failure}
+Likewise, another time-related metric of interest for prioritization is the time it takes to reach the first failure:
 \begin{align*}
     t_{ff} = \frac{t_F}{t_C}
 \end{align*}
@@ -316,12 +313,12 @@ Where $t_F$ is the time taken to reach the first failure for the proposed priori
 
 \subsubsection{Normalized Average of the Percentage of Faults Detected}
 For prioritization, only focusing on time to get to the first failure is skewed. As one could have detected the first failure
-soon, while prioritizing the rest of the failing test cases with low priority.
+soon while prioritizing the rest of the failing test cases with low priority.
 
 To overcome this, a widely used metric, first proposed by Elbaum, Malishevsky, and Rothermel in \cite{elbaum2002} is the 
 Average of the Percentage of Faults Detected (APFD).
 
-Normalizing this metric with respect to the amount of failures detected allows to take into consideration cases where no
+Normalizing this metric to the number of failures detected allows considering cases where no
 selected test case was failing. This is useful for evaluating prioritizations that had previously some selection criteria applied.
 
 It is defined by:
@@ -333,6 +330,6 @@ For $p$ the ratio of detected faults on a selection against the total amount of 
 $n$ the number of test cases, $m$ the total number of faults, and $TF_i$ the ranking of
 the test case that revealed the $i$-th failure.
 
-It represents the proportion of the tests failures detected against each executed test.
+It represents the proportion of the test failures detected against each executed test.
 We aim for this value to be close to 1, representing that the accumulated amount of 
 failures detected is obtained early with the prioritization.

@@ -1,7 +1,7 @@
 \section{Threats to validity}\label{s:conclusion-threats}
 
 Although the results are promising, it is important to consider
-the threats to validity of the evaluation. The most relevant threat 
+the threats to the validity of the evaluation. The most relevant threat 
 is a biased dataset.
 
 As explained in section \ref{s:method-collecting-dataset}, the dataset was 
@@ -9,11 +9,11 @@ collected over a week. Also, as previously explained, the size of
 the collected dataset and test suite restricted the training of the ranking
 algorithms.
 
-Among some of the reasons that could have biased the evaluation, is that
+Among some of the reasons this could have biased the evaluation, is that
 a week is a short time to be representative of the overall test execution dynamics.
 
 For example, a developer working on a feature may re-run the pipeline and continuously
 fail the same set of related tests. Given that history features are used, the learning algorithms
 could use this as an indicator of a high priority test. Which may not be true after the 
-work is done. A possible mitigation to this is to continuously retrain the algorithm.
-
+work is done. In an online implementation of these techniques, this problem
+could be mitigated by periodic retraining of the model.

@@ -1,9 +1,11 @@
 function Git-Switch {
     param (
-        [Parameter(Mandatory=$true)][string] $Visibility
+        [Parameter(Mandatory=$true)]
+        [ValidateSet("public","private")]
+        [string] $Visibility
     )
-    Remove-Item -Path .\.git
-    Remove-Item -Path .\.gitignore
-    New-Item -ItemType SymbolicLink -Path .\.git -Target ..\repos-metadata\.gitignore.$Visibility
-    New-Item -ItemType SymbolicLink -Path .\.gitignore -Target ..\repos-metadata\.git-$Visibility
+    (Get-Item -Path .\.git).Delete()
+    (Get-Item -Path .\.gitignore).Delete()
+    New-Item -ItemType SymbolicLink -Path .\.git -Target ..\repos-metadata\.git-$Visibility
+    New-Item -ItemType SymbolicLink -Path .\.gitignore -Target ..\repos-metadata\.gitignore.$Visibility
 }

@@ -96,6 +96,7 @@
     \fi
 \fi
 \fi
+\usepackage[left=25mm, right=25mm, top=25mm, bottom=25mm]{geometry}
 
 \linespread{1.05} % palatino needs a bit more space
 
@@ -215,7 +216,7 @@
 \makeatletter
 \def\sups{\iflanguage{danish}%
   {Vejleder\@ifundefined{itusupervisorextra}{}{e}}%
-  {Advisor\@ifundefined{itusupervisorextra}{}{s}}%
+  {Supervisor\@ifundefined{itusupervisorextra}{}{s}}%
 }
 \def\extrasup{\@ifundefined{itusupervisorextra}{}{\iflanguage{danish}{ og}{ and} \itusupervisorextra}}
 \makeatother

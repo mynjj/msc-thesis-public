@@ -46,7 +46,7 @@ Some of these tasks correspond to running different groups of tests. Therefore, 
 certain tests belonging to a task depend on the dependencies the task has.
 We explain by giving an example: Suppose a \emph{job} being executed 
 is defined by a model consisting of the tasks shown in figure \ref{fig:example-dag-tasks} as the 
-underlying DAG for such a set of task-dependencies. 
+associated DAG for such a set of task-dependencies. 
 
 \begin{figure}
     \def\svgwidth{\columnwidth}
@@ -60,7 +60,7 @@ and \texttt{BuildApplicationTestsDatabase}. On the other hand, the task
 \texttt{RunSystemTests} only depends on \texttt{BuildTests}.
 
 In this example, the DME system could assign two different machines to execute 
-\texttt{BuildTests} and \texttt{BuildApplicationTestsDatabase}. Let us suppose that
+\texttt{BuildTests} and \texttt{BuildApplicationTestsDatabase}. Let us suppose that\\
 \texttt{BuildApplicationTestsDatabase} takes longer. When the task \texttt{BuildTests}
 is done, the task \texttt{RunSystemTests} can already begin as its only dependency
 has finished. However, \texttt{RunApplicationTests} will have to wait for its other
@@ -81,7 +81,7 @@ metamodel in this context is a specification for the model that the jobs execute
     \centering
     \def\svgscale{0.1}
     \includesvg{thesis/figures/network-plots/metamodel-nonames}
-    \caption{Underlying DAG of the metamodel of job executions of the \emph{Application} pipeline for the \emph{Business Central} product.}
+    \caption{Associated DAG of the metamodel of job executions of the \emph{Application} pipeline for the \emph{Business Central} product.}
     \label{fig:full-job-metamodel-dag}
 \end{figure}
 

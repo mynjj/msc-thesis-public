@@ -39,7 +39,7 @@ a user can also define the tables to use in this language.
 
 \begin{figure}
     \begin{minipage}{.45\textwidth}
-        \begin{Verbatim}[fontsize=\small]
+        \begin{Verbatim}[fontsize=\tiny]
 var
     myInt: Integer;
     isValid: Boolean;
@@ -48,7 +48,7 @@ var
         \label{fig:al-var-decl}
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
-        \begin{Verbatim}[fontsize=\small]
+        \begin{Verbatim}[fontsize=\tiny]
 Amount := Total * myInt;
         \end{Verbatim}
         \caption{Assignment and operations in AL.}
@@ -57,7 +57,7 @@ Amount := Total * myInt;
 
 \begin{figure}
     \begin{minipage}{.45\textwidth}
-        \begin{Verbatim}[fontsize=\small]
+        \begin{Verbatim}[fontsize=\tiny]
 if x = y then begin  
     x := a;  
     y := b;  
@@ -67,7 +67,7 @@ end else
         \parbox{0.9\textwidth}{\caption{Branching in AL.}}
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
-        \begin{Verbatim}[fontsize=\small]
+        \begin{Verbatim}[fontsize=\tiny]
 procedure MyProcedure(Arg1: Integer; 
            Arg2: Boolean): Integer
 begin
@@ -90,7 +90,7 @@ Every code element in AL belongs to some object. To see the syntax of how to dec
 It requires an \texttt{ObjectID} a positive integer, an \texttt{ObjectName} a string identifier, and an \texttt{ObjectType}.
 
 \begin{figure}
-    \begin{Verbatim}[fontsize=\small]
+    \begin{Verbatim}[fontsize=\tiny]
 <ObjectType> <ObjectID> <ObjectName>
 {
     // Definition of the object
@@ -110,7 +110,7 @@ In figure \ref{f:app-al-page-alcode} you can see the AL code used to define the 
 shown in figure \ref{f:app-al-page}
 
 \begin{figure}
-    \begin{Verbatim}[fontsize=\small]
+    \begin{Verbatim}[fontsize=\tiny]
 page 379 "Bank Acc. Reconciliation"
 {
     Caption = 'Bank Acc. Reconciliation';
@@ -147,7 +147,7 @@ In figure \ref{f:app-al-table-alcode} you can see the definition of a table, and
 how data can be manipulated by usage of a \texttt{Record} variable.
 
 \begin{figure}
-    \begin{Verbatim}[fontsize=\small]
+    \begin{Verbatim}[fontsize=\tiny]
 table 273 "Bank Acc. Reconciliation"
 {
     Caption = 'Bank Acc. Reconciliation';
@@ -172,7 +172,7 @@ table 273 "Bank Acc. Reconciliation"
 \end{figure}
 
 \begin{figure}
-    \begin{Verbatim}[fontsize=\small]
+    \begin{Verbatim}[fontsize=\tiny]
     // ...
     CurrPage.Update(false);
     if not BankAccReconciliation.IsEmpty() then begin
@@ -203,7 +203,7 @@ Depending on the scope of a test, these tests can be integration tests, or unit 
 an example of a test in figure \ref{f:app-al-test}.
 
 \begin{figure}
-    \begin{Verbatim}[fontsize=\small]
+    \begin{Verbatim}[fontsize=\tiny]
 codeunit 134141 "ERM Bank Reconciliation"
 {
     Permissions = TableData "Bank Account Ledger Entry" = ri,

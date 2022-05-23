@@ -129,8 +129,6 @@ call it $IDCG@k$:
 NDCG@k = \frac{DCG@k}{IDCG@k}
 \end{align*}
 
-TODOO: Add discussion on \texttt{ERR@k} 
-
 The Mean Average Precision (MAP) is based on binary classification metrics. Traditionally
 precision and recall are widely used for binary classification. In the context of
 Information Retrieval, \emph{precision} refers to how many documents marked as relevant
@@ -148,6 +146,22 @@ Where $P(k), R(k)$ are the precision and recall obtained for the first $k$ resul
 While our proposed prioritizations to label the dataset are not binary (see section \ref{s:method-prioritizing-testruns}),
 they can be considered binary by giving a cutoff point for the assigned relevance.
 
+The Expected Reciprocal Rank (\texttt{ERR@k}) metric, was proposed in \cite{10.1145/1645953.1646033}
+by Chapelle, et. al..It is designed to take into consideration the relative ordering between ranked results.
+In contrast to \texttt{DCG}, it does not give the same gain and discount to a fixed position.
+It is defined by:
+
+\begin{align*}
+\sum_{r=1}^k \frac{1}{r} R_r \prod_{i=1}^{r-1}(1-R_i)
+\end{align*}
+
+Where, for $l_m$ the maximum priority value of the ranking:
+\begin{align*}
+R_i = \frac{2^{l_i}-1}{2^{l_m}}
+\end{align*}
+
+While this is the least intuitive of the metrics, it correlates better with search engine applications.
+It is based on modeling the probability of a user finding its query at a given document position.
 
 As part of our experiments described in chapter \ref{s:method}, we vary the metrics
 used to train the ranking algorithms. 

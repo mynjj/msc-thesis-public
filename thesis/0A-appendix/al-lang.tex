@@ -1,21 +1,19 @@
 \chapter{The AL Language}
 \label{sec:appendix-allang}
-TODOOO: Missing re-read/grammar-check
 
 One of the main design aspects of \emph{Business Central} (BC) is that all business logic is written in 
 a custom Application Language (AL), hiding all implementation details dealing with the technology.
 
 Extensions can be provided for the \emph{Business Central} runtime to add business functionality
-and to fit customer's requirements as much as desired. Such extensions are not only written by
+and to fit customers' requirements as much as desired. Such extensions are not only written by
 Microsoft, as users can customize their experience via extensions as required.
 
 This effectively creates an ecosystem of AL software, for diverse use cases of BC as an ERP.
 
-Adding a language abstraction force abstraction layers to what is possible within the language
+Adding a language abstraction forces abstraction layers to what is possible within the language
 and effectively separates business logic from technology implementation specifics.
-
 This has allowed the product to evolve throughout the years and experience several changes 
-that with a different design would be harder to achieve, for example: changing from 
+that with a different design would be harder to achieve, for example: changing the 
 database engine, or migrating to a cloud environment. Additionally, the language continues
 to evolve and be actively maintained by the team, to keep up with the requirements
 a modern language infrastructure requires.
@@ -24,14 +22,14 @@ Interestingly, this approach has been successfully used by other products as wel
 another ERP: SAP, has the language ABAP. A custom Domain Specific Language (DSL) resembling COBOL
 to extend the functionality of the system.
 
-In this section we give a brief tour of AL, \emph{Business Central}'s custom DSL for modifying
-its runtime. For a complete reference, we refer to Microsoft's documentation [?].
+In this section, we give a brief tour of AL, \emph{Business Central}'s custom DSL for modifying
+its runtime. For a complete reference, we refer to Microsoft's documentation \cite{bcaldocs}.
 
 \section{How does AL look?}
 
 In terms of syntax, AL resembles Pascal. It is an imperative, and procedural language. 
 As a quick overview, we show some of the basic building blocks of the language
-in figures \ref{fig:al-var-decl} to \ref{fig:al-proc-decl}.
+in the following figures.
 
 As you see, variables are \emph{typed}. The \texttt{Record} variable type corresponds to
 records in a table on the underlying database of the system. As we will explain later,
@@ -83,7 +81,7 @@ end
 \end{figure}
 
 \section{AL objects and BC's runtime}
-Objects in AL are not the general objects as understood in the Object Oriented Programming paradigm. Instead,
+Objects in AL are not the general objects as understood in the Object-Oriented Programming paradigm. Instead,
 they correspond to different units of BC's functionality.
 
 Every code element in AL belongs to some object. To see the syntax of how to declare them, see figure \ref{f:appendix-alobject}.
@@ -100,7 +98,7 @@ It requires an \texttt{ObjectID} a positive integer, an \texttt{ObjectName} a st
     \label{f:appendix-alobject}
 \end{figure}
 
-We will show some of these \texttt{ObjectType}s, and their effect in the runtime.
+We will show some of these \texttt{ObjectType}s, and their effect on the runtime.
 
 \subsection{The \texttt{Page} type}
 
@@ -131,7 +129,9 @@ page 379 "Bank Acc. Reconciliation"
 \end{figure}
 
 \begin{figure}
-    \caption{The interface the user interacts with corresponding to the AL page from figure \ref{f:app-al-page-alcode}.}
+    \centering
+    \includegraphics[width=0.9\textwidth]{thesis/figures/images/example-al-page.png}
+    \caption{The interface with which the user interacts, as defined by the AL page from figure \ref{f:app-al-page-alcode}.}
     \label{f:app-al-page}
 \end{figure}
 
@@ -143,8 +143,8 @@ to creating a table in the underlying SQLServer database.
 Having defined a table, a developer can now use \texttt{Record} type variables of such table,
 to manipulate and use this table as required, effectively acting as a data layer abstraction.
 
-In figure \ref{f:app-al-table-alcode} you can see the definition of a table, and in \ref{f:app-al-record-usage}
-how data can be manipulated by usage of a \texttt{Record} variable.
+In figure \ref{f:app-al-table-alcode} you can see the definition of a table, and in figure \ref{f:app-al-record-usage}
+how data can be manipulated by the usage of a \texttt{Record} variable.
 
 \begin{figure}
     \begin{Verbatim}[fontsize=\tiny]
@@ -194,12 +194,58 @@ with certain access modifiers.
 In figure \ref{f:app-al-codeunit} you can see a procedure defined in a codeunit and in figure \ref{f:app-al-codeunit-usage}
 an example of it being used from a different AL object.
 
+\begin{figure}
+    \begin{Verbatim}[fontsize=\tiny]
+codeunit 18 "Financial Report Mgt."
+{
+
+    TableNo = "Financial Report";
+
+    var
+        AccSchedLine: Record "Acc. Schedule Line";
+        FinRepPrefixTxt: Label 'FIN.REP.', MaxLength = 10, // ...
+        TwoPosTxt: Label '%1%2', Locked = true;
+    // ...
+    procedure XMLExchangeExport(FinancialReport: Record "Financial Report")
+    var
+        ConfigPackage: Record "Config. Package";
+        ConfigXMLExchange: Codeunit "Config. XML Exchange";
+    begin
+        AddFinancialReportToConfigPackage(FinancialReport.Name, ConfigPackage);
+        Commit();
+        ConfigXMLExchange.ExportPackage(ConfigPackage);
+    end;
+
+
+    local procedure AddFinancialReportToConfigPackage(FinancialReportName: Code[10]; var ConfigPackage //...
+    // ...
+}
+    \end{Verbatim}
+    \caption{Example of an AL Codeunit.}
+    \label{f:app-al-codeunit}
+\end{figure}
+
+\begin{figure}
+    \begin{Verbatim}[fontsize=\tiny]
+    // ...
+    trigger OnAction()
+    var
+        FinancialReportMgt: Codeunit "Financial Report Mgt.";
+    begin
+        FinancialReportMgt.XMLExchangeExport(Rec);
+    end;
+    // ...
+    \end{Verbatim}
+    \caption{Usage of the procedure defined in figure \ref{f:app-al-codeunit} in a different AL object}
+    \label{f:app-al-codeunit-usage}
+\end{figure}
+
 \section{AL Tests}
 
 Of particular relevance for this project, is how tests are defined in this language. Tests in AL are defined
  on AL objects of type \texttt{Codeunit} with appropriate annotations.
 
-Depending on the scope of a test, these tests can be integration tests, or unit tests. See
+Depending on the scope of a test, these tests can be integration tests or unit tests. See
 an example of a test in figure \ref{f:app-al-test}.
 
 \begin{figure}

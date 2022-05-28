@@ -1,14 +1,14 @@
 \section{Collecting the dataset of CI executions}\label{s:method-collecting-dataset}
 
-As the initial step of our project, we collect information about the CI executions
+As the initial step of our project, we collect information about the CI pipeline executions
 from data stored by the DME build system and the history of the repository.
 
 For each CI job, the information extracted was:
 \begin{itemize}
-    \item Execution model with the tasks that the DME system used as input.
+    \item Execution model with the tasks that the build system used as input.
     \item Job execution properties: duration, result, and date.
     \item For each of the tasks executed by the job, information on properties: duration, result, and date.
-    \item Other meta information to identify the job in the VCS.
+    \item Other meta information to identify the job in the Version Control System.
     \item For each of the \emph{application test} tasks, the result of each procedure run for each of the test units, along with information on the duration of its execution.
     \item Comparison with the last merge from the target branch: path and directories where changes were made, type of changes performed, and the content of modified files.
 \end{itemize}
@@ -37,23 +37,16 @@ outdated and hard to maintain \cite{Bertolino2020LearningtoRankVR}. This is
 partly true in our case as well, however, we acknowledge that the information 
 given by coverage can be valuable for our problem.
 
-In \cite{Busjaeger2016LearningFT} a more robust approach to using coverage information is proposed, by defining
+Busjaeger, et. al. in \cite{Busjaeger2016LearningFT} propose a more robust approach to using coverage information, by defining
 a coverage score. A feature like coverage score mitigates the lack of accuracy 
-of the coverage information. As additional mitigation to this problem we introduce
+of the coverage information. As additional mitigation to this problem, we introduce
 windows to compute such coverage scores as it will be shown in section \ref{s:method-characterizing-testruns}.
 
 \subsection{The collection process}
 
-As a general overview, over roughly a week period, real CI jobs in this pipeline were collected. 
-Sporadically between these jobs, custom jobs were executed with the required changes
+As a general overview, over some time, real CI jobs in this pipeline were collected. 
+Sporadically between these jobs, custom jobs were submitted to the build system with the required changes
 to the \emph{AL test runner} to collect coverage information. 
 
-For the results presented in this work, two of these coverage collecting jobs were 
-executed and retrieved, and 172 CI jobs were collected.
-
-Whenever coverage information is required to compute the features of a given CI job,
+In the next stages, whenever coverage information is required to compute properties of a given CI job,
 the coverage information used will be the closest earlier collected one.
-
-The scale of the collected information limited the number of jobs we were able to
-collect.\footnote{The information on CI job executions amounted to 6GB of data and 
-the coverage data to 44GB. }

@@ -2,13 +2,13 @@
 
 \emph{Business Central} (BC) is an Enterprise Resource Planning (ERP) software 
 system targeting Small and Midsized Businesses (SMB) from Microsoft. Its functionality
-spans several areas of a company like finance, sales, warehouse management, and
+spans several areas of a company such as finance, sales, warehouse management, and
 many others.
 
 BC allows for Microsoft partners to provide custom extensions that suit customer
 needs as much as required. This is done through application extensions that developers
 can write in AL: a Domain Specific Language (DSL) for the application logic. 
-These extensions modify the experience end-customers have with the product, and 
+These extensions modify the experience end-customers have with the product and 
 enhance the product with any custom logic their business may require.
 Not only partners provide extensions for BC, all the business logic
 are first-party extensions that Microsoft developers maintain for the core business 
@@ -39,12 +39,12 @@ each task corresponds to a node and an edge corresponds to the target depending 
 All these tasks and the job definition are defined within the same
 Version Control repository as code, giving the application developers complete 
 control over the job's execution. A Pull Request triggering the CI pipeline is not the only way 
-a developer can request \emph{jobs}. They can also require them whenever in the development 
+a developer can request \emph{jobs}. They can also require them at any point in the development 
 cycle for their convenience.
 
 Some of these tasks correspond to running different groups of tests. Therefore, the cost of executing 
-certain tests belonging to a task depend on the dependencies the task has.
-We explain by giving an example: Suppose a \emph{job} being executed 
+certain tests belonging to a task depends on the dependencies the task has.
+We explain this by giving the following example: Suppose a \emph{job} being executed 
 is defined by a model consisting of the tasks shown in figure \ref{fig:example-dag-tasks} as the 
 associated DAG for such a set of task-dependencies. 
 
@@ -75,7 +75,7 @@ The DAG of task-dependencies for the \emph{Application} pipeline of the \emph{Bu
 as the given example. In fact, it is so large that we can not show it meaningfully on a
 page. However, to satisfy the reader's curiosity, figure \ref{fig:full-job-metamodel-dag} 
 shows a complete diagram for the metamodel of this pipeline.\footnote{A 
-metamodel in this context is a specification for the model that the jobs execute, so it is \textit{smaller}, and easier to show.}
+metamodel in this context is a specification for the model that the jobs execute, so it is \textit{smaller} and easier to show.}
 
 \begin{figure}
     \centering
@@ -92,20 +92,21 @@ In the current CI pipeline of the \emph{application} code of BC, there is
 a selection method based on test coverage information. We will
 define more thoroughly the definition of a test selection method in section \ref{s:tsp-tech},
 for now, it suffices to think of it as selecting just a subset of tests from the complete
-set of tests in some meaningful way. In this section, we review how are tests defined for \emph{application} code, and what kind
+set of tests. In this section, we review how tests are defined for \emph{application} code, and what kind
 of coverage information we have available when executing tests.
 
 \subsubsection{Application Tests in AL}\label{sec:app-tests-al}
-We first give an overview of how tests are defined in AL.  For a more thorough overview of the AL
-language and its' role in the \emph{Business Central} system, we refer to Appendix \ref{sec:appendix-allang}.
+We first give an overview of how tests are defined in AL, \emph{Business Central}'s DSL for business logic.  
+For a more thorough overview of the AL language and its' role in the \emph{Business Central} system, 
+we refer to Appendix \ref{sec:appendix-allang}.
 
 AL organizes the code in \emph{objects} \footnote{Note that objects in this context do not 
 correspond to objects in the traditional sense of Object-Oriented Programming.}, these
 \emph{objects} represent different units of functionality for the different features of the
 product, for example, tables in a database, or pages the user can interact with. A common 
-type of \emph{object} is a \emph{codeunit} which is comprised of different procedures that
+type of \emph{object} is a \emph{codeunit} which is conformed by different procedures that
 can be called from any other \emph{AL object}\footnote{\emph{Modules} are a similar concept analogous
-to \emph{codeunits} in other languages like Python, NodeJS, Rust, Haskell, among others.}.
+to \emph{codeunits} in more traditional languages like Python, NodeJS, Rust, Haskell, among others.}.
 
 An \emph{application} test is written also in AL, as a \emph{codeunit} with specific annotations for it to 
 be identified by test runner applications. In figure \ref{fig:bg-bc-test-codeunit} you can see
@@ -135,10 +136,10 @@ codeunit 135203 "CF Frcst. Azure AI"
 \end{figure}
 
 Test runners are also implemented in AL. These are programs that run the test codeunits, with different
-settings, like permission sets to use, or whether or not should the test runner persist changes after 
+settings, like permission sets to use, or whether or not the test runner should persist changes after 
 test execution, which can be desirable according to the scenarios the developer wishes to test. Currently, 
 the project has two different implementations of test runners, used for different
-sets of tests, a result of historical legacy. As means of identification, we identify them 
+sets of tests, a result of historical legacy. For clarity, we distinguish them
 as \emph{CAL Test Runner} and \emph{AL Test Runner}.
 
 In the current \emph{application} CI pipeline, an \emph{Application Test} task on the job model can use either of these 
@@ -146,8 +147,8 @@ two test runners depending on their needs, or historical legacy. In the current 
 roughly half of the test tasks are using \emph{CAL Test Runner} and the other half the \emph{AL Test Runner}.
 
 Aside from historic differences, for our purposes, we highlight a significant
-difference: The \emph{CAL Test Runner} can produce coverage information of tests execution, and the \emph{AL Test Runner}
-currently used does not.
+difference: The \emph{CAL Test Runner} can produce coverage information of test execution, and the \emph{AL Test Runner}
+currently does not.
 
 \subsubsection{Coverage information}\label{s:bg-bc-coverage}
 AL has implemented a language primitive that can be used to record information about which lines 
@@ -157,18 +158,17 @@ to record activity on each AL object throughout execution.
 
 The \emph{CAL Test Runner} currently has 3 different kinds of output relating to coverage information.
 We will use information that will allow us to: given a test codeunit executed by the test runner, 
-to have a list of the different \emph{AL objects} and lines within these objects that were run by
+obtain a list of the different \emph{AL objects} and lines within these objects that were run by
 the test execution.
 
-For concreteness and further illustrate the information available we show an example. In figure \ref{fig:bg-bc-test-codeunit}
+For concreteness and to further illustrate the available information, we show an example. In figure \ref{fig:bg-bc-test-codeunit}
 we have an excerpt of the test codeunit 135203, containing several test procedures. In figure \ref{fig:bg-bc-coveragefile} we can see
-a corresponding excerpt of its coverage file. Such coverage was collected for a given state of the codebase.
+a corresponding excerpt of its coverage file. This coverage information was collected for a given state of the codebase.
 
 Each row on the coverage file corresponds to a line being executed when executing test codeunit 135203. The first 3 columns 
-identify such line by giving the Object Type and Object Id the line belongs to, and the Line Number to be considered. The last
-column corresponds to the number of times the line was executed. 
-
-We can see in this example that Codeunit 28 had among others lines 111, 112, 115, and 116  executed. In 
+identify each line by giving the Object Type and Object Id the line belongs to, and the Line Number to be considered. The last
+column corresponds to the number of times the line was executed. For example, in figure \ref{fig:bg-bc-coveragefile},
+we can see that Codeunit 28 had among others lines 111, 112, 115, and 116  executed once. In 
 figure \ref{fig:bg-bc-covered-file} we can see such lines.
 
 \begin{figure}
@@ -187,7 +187,7 @@ figure \ref{fig:bg-bc-covered-file} we can see such lines.
 "Codeunit","28","122","1"
 ...
     \end{Verbatim}
-    \caption{Excerpt of coverage file for the test codeunit 135203. The columns correspond to: Object Type, Object Id, Line Number and Number of Hits}
+    \caption{Excerpt of the coverage file for the test codeunit 135203. The columns correspond to Object Type, Object Id, Line Number, and Number of Hits}
     \label{fig:bg-bc-coveragefile}
 \end{figure}
 
@@ -216,8 +216,8 @@ figure \ref{fig:bg-bc-covered-file} we can see such lines.
 Currently, the CI pipeline performs test selection for tasks executed with the \emph{CAL Test Runner},
 for which coverage information of each executed test codeunit is recorded.
 
-The selection technique is based on obtaining the lines and files which the developer is
-affecting when integrating its change. And finding such lines on the recorded coverage information.
+The selection technique is based on obtaining the lines and files affected
+by integrating a developer's change and finding such lines on the recorded coverage information.
 
 For all those matching lines, the corresponding test codeunit is selected for execution. This 
 effectively selects every test which traversed during its execution the lines being changed

@@ -81,11 +81,12 @@ to perform training of RankBoost, as its memory complexity is squared in the
 number of tests.
 
 This would also increase the confidence and validity of the results presented in this 
-project.
+project. Having a larger dataset allows for multiple validation datasets, to increase the
+confidence of the proposed selection sizes in this work.
 
 Other approaches that avoid retraining like Reinforcement Learning could be 
-leveraged and be the subject of future work with the produced dataset.
-
+leveraged and be the subject of future work with the produced dataset, although
+comparison in existing literature favors \emph{Learning to Rank} approaches \cite{Bertolino2020LearningtoRankVR}.
 
 In regards to \emph{Learning to Rank} approaches, more properties could be
 obtained to give a vector representation of a codebase change and tests. 
@@ -93,9 +94,7 @@ obtained to give a vector representation of a codebase change and tests.
 For instance, in \cite{Bertolino2020LearningtoRankVR}, they propose more 
 code metrics that were not in scope for this project. Examples include 
 cyclomatic complexity, number of public or private methods, number of 
-new functions, and others. 
-
-Other interesting features were explored in \cite{Busjaeger2016LearningFT}, 
+new functions, and others. Other interesting features were explored in \cite{Busjaeger2016LearningFT}, 
 where besides coverage score, they use \emph{text similarity} metrics between the 
 names of the test procedures and paths of the files or their content. 
 

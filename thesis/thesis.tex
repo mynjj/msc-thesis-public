@@ -32,26 +32,26 @@
 In this project, we present the evaluation of test selection and prioritization techniques, with data 
 collected from a Continuous Integration (CI) pipeline of the Microsoft \emph{Business Central} project.
 
-We reduce the test prioritization problem to a ranking problem. This is done by computing 
-properties for the given changes to the codebase and using them as input vectors to 
-different ranking algorithms. In contrast to existing research, we use different properties;
-most notably, the usage of test coverage information. 
-
 Having an effective technique for test prioritization in a project is relevant in Continuous Integration
 pipelines. Their execution can be time-consuming and energy inefficient. Furthermore, these are typically executed
 multiple times per day in a large team. Speed and efficiency not only benefit the development cycles but overall development
 costs and energy impact.
 
-Our results show that using coverage information for assigning priorities increases the effectiveness of
-the prioritization proposed. However, using coverage information as part of the feature vectors reduces
-its effectiveness and increases the variance of the results for the datasets created.
+We reduce the test prioritization problem to a ranking problem. This is done by extracting 
+numeric representations of the changes in a codebase, and using them as input vectors to 
+different ranking algorithms. In contrast to existing research, we use different representations;
+most notably, the usage of test coverage information. 
 
-Based on these results, we argue that with the proposed prioritization algorithms we would be able to reduce 
+Our results show that for the datasets created, using coverage information for assigning priorities 
+increases the effectiveness of the prioritization used. However, using coverage information for representing 
+changes reduced its effectiveness. 
+
+Based on these results, we argue that with this approach to prioritization we would be able to reduce 
 the number of tests that were run by 60\% using a conservative estimate of the best performing algorithm,
 which corresponds to an execution time improvement of 90\% in average. This suggests that these approaches
 are well suited for the pipeline under study.
 
-We also give an outline of how this prioritization could be integrated into different stages 
+Furthermore, we also give an outline of how this prioritization could be integrated into different stages 
 of the existing pipeline.
 \end{abstract}
 

@@ -3,23 +3,37 @@
 For each of the collected CI jobs, we obtain features to characterize
 the changes made by the developer, for each of the executed tests in the job.
 
-In this section, we explain the different kinds of information obtained to
-characterize them.
+We consider three categories of properties used to obtain the vector
+representation of a test's execution:
+\begin{itemize}
+    \item Properties of the change to the AL codebase: Properties related to the changes of the AL files in the codebase.
+    \item Test history properties: Properties related to the historical behavior of the test.
+    \item Coverage properties: Properties related to the coverage information of each test and the change considered.
+\end{itemize}
 
-\subsection{File changes}
+In the rest of this section, we list the properties considered in each category.
+In section \ref{s:future-evalp} we discuss some of the different features that 
+future work could consider found in the literature.
 
-We use the following quantities to represent the changes done for each object:
+\subsection{Properties of the change to the AL codebase}
+
+We use the following quantities to represent the changes done to the
+AL codebase:
 
 \begin{itemize}
-    \item Amount of new AL tables.
-    \item Amount of new AL objects.
-    \item Amount of modified AL objects.
-    \item Amount of removed AL objects.
-    \item Amount of changed tests.
-    \item Amount of non-AL file changes.
-    \item Amount of added lines to AL objects.
-    \item Amount of removed lines from AL objects.
+    \item Number of new AL tables.
+    \item Number of new AL objects.
+    \item Number of modified AL objects.
+    \item Number of removed AL objects.
+    \item Number of changed tests.
+    \item Number of added lines to AL objects.
+    \item Number of removed lines from AL objects.
+    \item Number of changed files that are not AL objects.
 \end{itemize}
+
+These quantities represent numerically the typical changes experienced in the AL DSL. These properties are analogous to
+the \emph{Program size} and \emph{Object-oriented} properties used by Bertolino et. al. in \cite{Bertolino2020LearningtoRankVR},
+which are not directly applicable to our case.
 
 \subsection{Test history properties}
 
@@ -28,7 +42,7 @@ For each of the tests in a job we add the following historic properties:
 \begin{itemize}
     \item Proportion of times the test has failed within the available data.
     \item From the past $k$ job executions, the proportion of times the test has failed.
-    \item Average duration of this test within the available data.
+    \item Average duration of this test in previous executions.
 \end{itemize}
 
 \subsection{Coverage properties}
@@ -46,6 +60,3 @@ line nearby was covered, it was counted for such properties. We added features f
 different window sizes.
 
 The aim of such is to reduce the impact of having outdated coverage information.
-
-In section \ref{s:future-evalp} we discuss some of the different features that 
-future work could consider found in the literature.

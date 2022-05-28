@@ -1,6 +1,20 @@
 \chapter{Method}\label{s:method}
 
-\input{thesis/03-Method/outline}
+In this chapter, first, we describe how we obtained the information
+from the build system of \emph{Business Central} for the pipeline under study, 
+along with the required changes to collect coverage information.
+
+Afterwards, in section \ref{s:method-characterizing-testruns}, we describe how we obtain features for
+the collected changes and test runs. These features are used to numerically represent a 
+test run in a CI job. This representation is suitable to be used as the input of ranking algorithms.
+
+Afterwards, in section \ref{s:method-prioritizing-testruns}, we describe how we label
+the training datasets. That is, the different criteria used to assign priorities to
+the given tests.
+
+Finally, in section \ref{s:method-training-models}, we describe the training of the 
+different ranking models, with different datasets.
+
 \input{thesis/03-Method/collecting-dataset}
 \input{thesis/03-Method/characterizing-test-runs}
 \input{thesis/03-Method/prioritizing-test-runs}

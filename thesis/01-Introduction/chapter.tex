@@ -12,15 +12,11 @@ angles have been studied and implemented by large-scale software systems.
 Automated regression testing is one of the main strategies widely adopted by the industry,
 to ensure that changes to the code will not negatively affect the users of the system. 
 
-It consists of developers writing automated tests: code that executes scenarios that a user would experience
+Automated regression testing consists of developers writing automated tests: code that executes scenarios that a user would experience
 and asserts that desired properties hold. Afterwards, when changes to the code are done,
 executing successfully the set of automated tests gives confidence that such scenarios will
-not be impacted by the change.
-
-In practice, this is an effective technique to keep the quality of the system and
-allow for its evolution. However, there is a drawback, as the system evolves, more
-scenarios get added and eventually, it can become time-consuming to run the complete
-set of automated tests.
+not be impacted by the change. In practice, this is an effective technique to keep the quality of the system and
+allow for its evolution. 
 
 Another challenge in software engineering consists in having an effective development process when
 working with large teams. Many strategies have also been studied, and the industry 
@@ -34,44 +30,51 @@ can then react accordingly if the change conflicts with their work.
 Frequently integrating changes to the product increases the risk of making mistakes.
 For that reason, as a safeguard, the set of automated tests should be run before 
 integrating every change. The process of building and testing the code automatically
-every time a change is meant to be integrated is called a CI pipeline.
+every time a change is meant to be integrated is called a CI pipeline and it is typically
+enforced in the development processes of industrial software products.
 
 By frequently integrating changes with the regression test suite backing its correctness
 we ensure quality in every small step.
 
-We can now see that having a time-consuming set of tests to execute is a relevant 
-drawback for teams that want to adopt CI practices. While on one hand, it is desired
-to automatically run tests with every small change, a sufficiently large test suite
-can take a considerable amount of time to execute.
+However, there is a drawback: as the system evolves, more regression tests
+get added, and eventually, it can become time-consuming to run the complete
+set of automated tests. Even more, if this is done every time a developer wishes to
+integrate changes to the codebase, which is the case in the context of CI.
 
 To address this problem, academic research and industry have focused on several angles.
 Algorithms on Test Selection and Prioritization (TSP) are techniques that aim to 
-automatically propose a relevant sorted subset of tests to execute. These techniques
-acknowledge that it is not needed to run all the tests, instead, only
-those which would be more likely to fail first. As the goal of running a test suite is to
-avoid potential errors to be integrated into the codebase, we can give the developer 
-feedback on errors to be corrected earlier, if found earlier.
+automatically propose a relevant sorted subset of tests to execute. The rationale
+behind these techniques is that since the goal of executing the test suite is to
+find failing test cases for the given change, we can avoid executing unrelated tests
+by selecting a subset of them and executing first the ones that are more likely to fail.
 
-For this project, TSP techniques are proposed and evaluated for one of the CI pipelines
-of the \emph{Business Central} project. \emph{Business Central} is an Enterprise Resource Planning (ERP)
-software product by Microsoft. The aim is to find an adequate technique
-for this pipeline and to propose possible directions to take to improve the
-CI cycle feedback time and effectiveness.
-
-Not only is optimizing CI pipelines relevant to improving the agility of software development, 
+Not only is optimizing CI pipelines relevant for improving the agility of software development, 
 but it also has a positive impact on the energy resources they require.
 These pipelines are run multiple times a day, and the cost of operating the infrastructure
 required to keep the system evolving is significant.
 
-In this project, we will follow the same approach as previous research by Bertolino
-et.al. in \cite{Bertolino2020LearningtoRankVR}, transforming this problem into a \emph{ranking} problem.
-Afterwards, different \emph{Learning to Rank} algorithms will be applied and evaluated.
-However, in contrast to their work, we use test coverage information for two different 
-parameters of how our ranking datasets are created.
+For this project, TSP techniques are applied and evaluated for data collected from one of the CI pipelines
+of the \emph{Business Central} project. \emph{Business Central} is an Enterprise Resource Planning (ERP)
+software product by Microsoft.  The aim is to find an adequate technique for this pipeline and to 
+propose possible directions to improve the CI cycle feedback time and effectiveness.
 
-We also outline the different challenges and technical difficulties that adapting
+The techniques explored are based upon previous work by Bertolino
+et. al. in \cite{Bertolino2020LearningtoRankVR}, where the prioritization problem is transformed
+into a \emph{ranking} problem. We then apply different \emph{Learning to Rank} algorithms and evaluate
+their results. However, in contrast to their approach, we propose the usage of coverage information 
+as a criterion for these techniques.
+
+For clarity, we will focus on the following research questions:
+\begin{itemize}
+    \item \textbf{RQ1}: Which of the evaluated techniques yields the best prioritization results?
+    \item \textbf{RQ2}: How much could we reduce the number of tests and execution time in this pipeline?
+    \item \textbf{RQ3}: What is the effect of using coverage information for these techniques?
+\end{itemize}
+
+Throughout this work, we also outline the different challenges and technical difficulties that adapting
 academic techniques posed when taking into consideration the practical realities
-of an industrial environment. 
+of an industrial environment. Additionally, we discuss how these techniques could
+be used in the existing context of the pipeline.
 
 All the code for the different stages of the project can be found 
 in the accompanying repository.\footnote{\url{https://github.com/mynjj/msc-thesis-public}}

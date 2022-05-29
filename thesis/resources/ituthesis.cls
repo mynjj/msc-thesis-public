@@ -236,7 +236,8 @@
   \begin{tikzpicture}[remember picture,overlay,line width=0mm,shift=(current page.south west), align=left, font=\sffamily\large]
     \node[anchor=south west] (meta) at (2.5cm, 2.5cm) {
       \sups : \itusupervisor \extrasup\\
-      \iflanguage{danish}{Afleveret}{Submitted}: \itudate
+      \iflanguage{danish}{Afleveret}{Submitted}: \itudate \\
+      STADS code: KISPECI1SE
     };
   \end{tikzpicture}
 

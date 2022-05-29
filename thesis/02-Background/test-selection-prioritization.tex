@@ -29,7 +29,7 @@ This is how we obtain the selected subsets evaluated in chapter \ref{s:results}.
 
 Yoo and Harman in their survey \cite{Yoo2012RegressionTM} present a detailed overview of techniques used for
 regression test selection, prioritization, and minimization\footnote{Minimization is a problem not dealt with in this project, it consists of removing superfluous tests from a test suite}.
-In this survey, several foundational works on this area are presented, including formal definitions, and metrics to evaluate this problem.
+In this study, several foundational works on this area are presented, including formal definitions, and metrics to evaluate this problem.
 
 In the literature, we can find similar techniques to the already implemented selection technique
 in the pipeline under study. As explained in section \ref{sec:bg-bc-test-selection-currently},
@@ -43,9 +43,9 @@ and some others use coverage information. Like the work of Beszédes et. al. \ci
 describe populating a coverage database for the C++ components of the WebKit project
 and identify the changed modules from a given revision.
 
-For the techniques evaluated in this project, other surveys like \cite{Pan2021TestCS} by Pan, et. al.,
+For the techniques evaluated in this project, other literature reviews like \cite{Pan2021TestCS} by Pan, et. al.,
 present more similar techniques, as they give an overview of Selection and Prioritization techniques
-using Machine Learning (ML). In this survey, they classify the approaches into four groups: Supervised
+using Machine Learning (ML). In this study, they classify the approaches into four groups: Supervised
 Learning, Unsupervised Learning, Reinforcement Learning, and Natural Language Processing-based.
 
 In our project we focus on Supervised Learning techniques, as found in the work by Bertolino et. al. in 
@@ -75,7 +75,7 @@ Ranking algorithms are relevant to different problems, for example in search eng
 recommender systems.
 
 An approach that has been the subject of extensive research in recent years is \emph{Learning to rank},
-a set of ML techniques whose goal is to obtain a \emph{ranking model} out of
+a set of ML techniques with the goal of obtaining a \emph{ranking model} out of
 training data. This model is reused when unseen queries are given,
 to obtain a similar ranking of the documents as for the training data. 
 
@@ -84,7 +84,7 @@ and a query $q$, it returns an ordered set of every element of $D$. Such ordered
 sorted according to some relevance criterion.
 
 In the case of CI cycle optimization with Test Prioritization, we interpret the query $q$ as the
-change the developer wants to commit to the target branch. The set of documents $D$ corresponds to
+change that the developer wants to commit to the target branch. The set of documents $D$ corresponds to
 the complete test suite. Our relevance criterion corresponds to sorting the
 failing tests first (if any) and the rest of the tests can be sorted through different criteria
 like duration or test coverage as we will explain in section \ref{s:method-prioritizing-testruns}.
@@ -101,7 +101,8 @@ give a brief overview of the different ranking algorithms used for completeness.
 Research on ranking algorithms has given a diverse set of metrics to compare and evaluate
 rankings proposed by these algorithms. 
 
-A common metric used to evaluate ranking algorithms is the Discounted Cumulative Gain (DCG).
+A common metric used to evaluate ranking algorithms is the Discounted Cumulative Gain (DCG), which was 
+proposed by J\"{a}rvelin, et. al. \cite{10.1145/582415.582418}. 
 \texttt{DCG@k} is defined for $k$ the truncation level as:
 \begin{align*}
 DCG@k = \sum_{i=1}^{k}\frac{2^{l_i}-1}{\log(i+1)}
@@ -119,7 +120,7 @@ the ideal ranking for that query and computes its corresponding \texttt{DCG@k} d
 NDCG@k = \frac{DCG@k}{IDCG@k}
 \end{align*}
 
-Another metric is the Mean Average Precision (MAP), which is based on binary classification metrics. Traditionally,
+Another metric is the Mean Average Precision (MAP) \cite{zhumap}, which is based on binary classification metrics. Traditionally,
 precision and recall are widely used for binary classification. In the context of
 Information Retrieval, given a query, \emph{precision} refers to how many documents predicted as relevant
 are labeled as relevant, \emph{recall} refers to how many of the documents were correctly
@@ -137,7 +138,7 @@ While our proposed prioritizations to label the dataset are not binary,
 they can be considered binary by giving a cutoff point for the assigned relevance.
 
 The Expected Reciprocal Rank (\texttt{ERR@k}) metric, was proposed in \cite{10.1145/1645953.1646033}
-by Chapelle, et. al..It is designed to take into consideration the relative ordering between ranked results.
+by Chapelle, et. al. .It is designed to take the relative ordering between ranked results into consideration.
 In contrast to \texttt{DCG}, it does not give the same gain and discount to a fixed position.
 It is defined by:
 
@@ -176,9 +177,8 @@ ranking method by Metzler and Croft in \cite{Metzler2006LinearFM}, and it has su
 to different ranking problems. We give a short overview of how this optimization method is used as
 a ranking method, but we refer to the above-mentioned article for a detailed explanation.
 
-Among other things that differ from the traditional optimization, in \cite{Metzler2006LinearFM} Metzler, et. al. propose 
-other constraints to the scoring functions and transformations to reduce the parameter space 
-being optimized to find values on a simplex.
+The optimization is used for maximizing the different ranking evaluation metrics presented in section \ref{s:bg-rnk-metrics}.
+Metzler, et. al. propose a linear model to predict the score of each document and add constraints to the parameter space being optimized.
 
 To make it more concrete, the ranking is induced by a scoring function $S$, for a document $D$ and query $Q$
  of the following form:
@@ -190,7 +190,6 @@ S(D; Q) = \Omega \cdot f(D, Q) + Z
 Where $f(D, Q)$ denotes the feature vector for such document and query, $Z$ denotes a fixed constant, and $\Omega$
 denotes the free parameters to be optimized. In the ranking library used for the implementation in this project, called Ranklib, $Z$ is set to zero.
 
-Notice that this scoring function is not the function being optimized, but the ranking evaluation metric.
 
 \subsubsection{MART}
 Regression algorithms using gradient boosting were first proposed by Friedman in \cite{Friedman2001GreedyFA},
@@ -224,7 +223,7 @@ Methods for ranking induced by regression algorithms such as MART are called \em
 because they only consider the information of a single document to determine its relevance.
 
 \subsubsection{LambdaMART}
-LambdaMART takes its name from its constituents: LambdaRank and MART. In the previous section, we 
+LambdaMART\cite{lambdamart} takes its name from its constituents: LambdaRank and MART. In the previous section, we 
 explained how MART works for general regression and ranking.
 
 In contrast to \emph{pointwise} algorithms that only consider a single document to assign its relevance,
@@ -256,7 +255,7 @@ the best in the analysis given by Bertolino, et. al. in \cite{Bertolino2020Learn
 
 \subsubsection{RankBoost}\label{s:bg-tsp-rankboost}
 
-First proposed by Freund, Yoav, et. al. in \cite{10.5555/945365.964285}. Similar to MART, it uses \emph{boosting}, combining
+Rankboost was proposed by Freund, Yoav, et. al. \cite{10.5555/945365.964285}. Similar to MART, it uses \emph{boosting}, combining
 several \emph{weak} learners into a single model.
 
 Each of these learners predicts a relevance function, and therefore a ranking. For training, a distribution $D$ over

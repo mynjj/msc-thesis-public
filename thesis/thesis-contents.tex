@@ -1,0 +1,98 @@
+\documentclass{thesis/resources/ituthesis}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{svg}
+\usepackage{calc}
+\usepackage{fancyvrb}
+\usepackage{multirow}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{hyperref}
+
+\settitle{Testing Faster in\\ Continuous Integration Pipelines. \\An Industrial Case Study}
+\setauthor{Diego Joshua Martínez Pineda\\diem@itu.dk}
+\setsupervisor{Mahsa Varshosaz}
+\setdate{May 2022}
+
+\begin{document}
+
+\frontmatter
+
+\thetitlepage
+\newpage
+\chapter{\texttt{SYN/ACK}$^1$}
+\footnotetext[1]{A TCP joke, because less people would get a UDP one.\footnotemark[2]}
+\footnotetext[2]{Yes, that was another joke.}
+
+\parbox{0.8\textwidth}{
+Oh... so many things to acknowledge and be thankful about. It transcends words really.
+
+Thanks to the kind people and great engineers at Microsoft, it is an honor to be able to learn
+from all of you. Thanks to the team behind the ITU's HPC, always helpful and effective. 
+And thanks to Mahsa, my supervisor, for her extensive proofreading, and guidance throughout 
+the project, I truly appreciate it. 
+}
+
+\vspace{3.5cm}
+
+\parbox{\textwidth}{
+    \begin{flushright}
+``Gracias" no son suficientes para las personas que me han ayudado de la manera 
+m\'as profunda. Gracias a mis abuelos Abel y Ana Mar\'ia, por su amor y sabidur\'ia.
+Gracias a Sof\'ia, Elisa, Miguel y Anabelle, la familia que me ha hecho quien soy y 
+que me ha ense\~nado lo que significa amar desinteresadamente. 
+
+Finalmente, gracias a la familia que me ha dado vital apoyo en esta etapa de mi vida. Gracias a 
+mis primos Karla y Oskar, a mi t\'ia Patricia por toda su entrega, amor y paciencia. A mi t\'io, Anders S\o{}rensen, 
+osito, que me ense\~n\'o tanto en tan poco tiempo. Continuo aprendiendo de ti, te admiro, extra\~no 
+y llevo en mi coraz\'on por el resto de mi vida.  
+
+M\'as alla de las palabras, los amo. Todos mis logros son en verdad suyos.
+    \end{flushright}
+}
+
+\newpage
+\thispagestyle{empty}
+\begin{abstract}
+In this project, we present the evaluation of test selection and prioritization techniques, with data 
+collected from a Continuous Integration (CI) pipeline of the Microsoft \emph{Business Central} project.
+
+Having an effective technique for test prioritization in a project is relevant in Continuous Integration
+pipelines. Their execution can be time-consuming and energy inefficient. Furthermore, these are typically executed
+multiple times per day in a large team. Speed and efficiency not only benefit the development cycles but overall development
+costs and energy impact.
+
+We reduce the test prioritization problem to a ranking problem. This is done by extracting 
+numeric representations of the changes in a codebase, and using them as input vectors to 
+different ranking algorithms. In contrast to existing research, we use different representations;
+most notably, the usage of test coverage information. 
+
+Our results show that for the datasets created, using coverage information for assigning priorities 
+increases the effectiveness of the prioritization used. However, using coverage information for representing 
+changes reduces its effectiveness. 
+
+Based on our results, we argue that with this approach to prioritization we would be able to reduce 
+the number of tests that were run by 60\% using a conservative estimate of the best performing algorithm,
+which corresponds to an execution time improvement of 90\% in average. This suggests that these approaches
+are well suited for the pipeline under study.
+
+Furthermore, we also give an outline of how this prioritization could be used in different stages 
+of the existing pipeline.
+\end{abstract}
+
+\newpage
+\tableofcontents
+
+\mainmatter
+
+\input{thesis/01-Introduction/chapter}%
+\input{thesis/02-Background/chapter}%
+\input{thesis/03-Method/chapter}%
+\input{thesis/04-Results/chapter}%
+\input{thesis/05-Conclusion/chapter}%
+\input{thesis/06-FutureWork/chapter}%
+\bibliographystyle{plain}
+\bibliography{thesis/references}
+
+%\end{document}

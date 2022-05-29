@@ -1,14 +1,22 @@
 function Build-Thesis{
     param (
-        [switch] $Clean
+        [switch] $Clean,
+        [switch] $AllOutputs
     )
     $OutDir = "$THESIS_SRC\out"
     $AuxDir = $OutDir
     if($Clean){
         Remove-Item -Path "$OutDir\*"
     }
+    bibtex $OutDir\complete-thesis
+    pdflatex $THESIS_SRC\complete-thesis.tex -output-directory $OutDir -aux-directory $AuxDir -shell-escape
+    if(-not $AllOutputs){
+        return
+    }
     bibtex $OutDir\thesis
+    bibtex $OutDir\appendix
     pdflatex $THESIS_SRC\thesis.tex -output-directory $OutDir -aux-directory $AuxDir -shell-escape
+    pdflatex $THESIS_SRC\appendix.tex -output-directory $OutDir -aux-directory $AuxDir -shell-escape
 }
 
 function LongTable {

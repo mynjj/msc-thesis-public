@@ -97,8 +97,8 @@ of coverage information we have available when executing tests.
 
 \subsubsection{Application Tests in AL}\label{sec:app-tests-al}
 We first give an overview of how tests are defined in AL, \emph{Business Central}'s DSL for business logic.  
-For a more thorough overview of the AL language and its' role in the \emph{Business Central} system, 
-we refer to Appendix \ref{sec:appendix-allang}.
+For a more thorough overview of the AL language and its role in the \emph{Business Central} system, 
+we refer to the appendix of this project.
 
 AL organizes the code in \emph{objects} \footnote{Note that objects in this context do not 
 correspond to objects in the traditional sense of Object-Oriented Programming.}, these
@@ -156,7 +156,7 @@ of code of which objects were executed. In a broad sense, this is how the test c
 the \emph{CAL Test Runner} is produced. After setting up the context for each test, this primitive is used
 to record activity on each AL object throughout execution.
 
-The \emph{CAL Test Runner} currently has 3 different kinds of output relating to coverage information.
+The \emph{CAL Test Runner} currently has three different kinds of output relating to coverage information.
 We will use information that will allow us to: given a test codeunit executed by the test runner, 
 obtain a list of the different \emph{AL objects} and lines within these objects that were run by
 the test execution.

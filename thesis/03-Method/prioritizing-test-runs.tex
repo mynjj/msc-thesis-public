@@ -30,7 +30,9 @@ in duration have a larger effect for tests with small duration, than for test ex
 large duration.
 
 \subsection{Coverage discrete priorities}\label{s:method-prioritizingtestcases}
-We propose a discrete priority function using coverage information. 
+We propose a discrete priority function using coverage information, since as stated in \textbf{RQ3}
+we aim to understand the effect of using coverage information in different criteria of the
+\emph{Learning to Rank} techniques.
 
 Given the $i$-th test, we define $L_i$ as the number of lines covered by this test.
 
@@ -48,10 +50,12 @@ in the following order:
     \item Tests where $L_i < \mu_{L,\tau}$
 \end{itemize}
 
-Intuitively, this prioritization ranks first failing tests, and then as a conservative 
+This prioritization ranks first failing tests, and then as a conservative 
 approach the modified tests in the change, and tests for which we do not have any coverage 
 information, for example, new tests. Afterwards, we assign a higher priority to tests that
  traverse the changed lines on their execution, and finally the other unrelated tests.
+ We break ties between them by the density of lines covered by each test since intuitively,
+ a test covering more lines has a higher likelihood of failing.
 
-It is worth reminding the reader, that from such a job we do not have the exact coverage information
-but the most recent, previously collected. As we described in section \ref{s:method-collecting-dataset}.
+As described in section \ref{s:method-collecting-dataset}, for each of these jobs we do not 
+have the exact coverage information, but the most recent, previously collected. 

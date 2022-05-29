@@ -1,19 +1,14 @@
 \chapter{Method}\label{s:method}
+To use \emph{Learning to Rank} approaches in our context we require to:
+\begin{itemize}
+    \item Collect CI jobs, along with information on the tests executed. Since we are also using coverage information, we also need to collect this information.
+    \item Obtain vectors representing each test execution for each change to the codebase. These vectors represent the \emph{queries} in the context of \emph{Learning to Rank}.
+    \item Label the training dataset by assigning rankings to each. These labels should reflect prioritizing failing tests, the remaining tests could be prioritized with different criteria.
+    \item Train the models with the different parameters that could be considered for each. This training is performed with the training dataset produced after representing each query and assigning priorities to them.
+    \item Use the models to obtain rankings for the validation dataset. With these prioritizations, we can obtain the different evaluation metrics that we require to answer our research questions.
+\end{itemize}
 
-In this chapter, first, we describe how we obtained the information
-from the build system of \emph{Business Central} for the pipeline under study, 
-along with the required changes to collect coverage information.
-
-Afterwards, in section \ref{s:method-characterizing-testruns}, we describe how we obtain features for
-the collected changes and test runs. These features are used to numerically represent a 
-test run in a CI job. This representation is suitable to be used as the input of ranking algorithms.
-
-Afterwards, in section \ref{s:method-prioritizing-testruns}, we describe how we label
-the training datasets. That is, the different criteria used to assign priorities to
-the given tests.
-
-Finally, in section \ref{s:method-training-models}, we describe the training of the 
-different ranking models, with different datasets.
+In the remainder of this chapter, we discuss more details of these stages.
 
 \input{thesis/03-Method/collecting-dataset}
 \input{thesis/03-Method/characterizing-test-runs}

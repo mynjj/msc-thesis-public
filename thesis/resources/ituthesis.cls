@@ -226,10 +226,10 @@
 \newcommand{\thetitlepage}{
   \thispagestyle{empty}
   \begin{tikzpicture}[remember picture,overlay,line width=0mm,shift=(current page.center)]
-    \node[align=center,font=\sffamily\Huge] (title) at (0, 3cm){
+    \node[align=center,font=\sffamily\Huge] (title) at (0, 6cm){
       \itutitle
     };
-    \node[align=center,font=\sffamily\Large] (author) at (0, -2cm){
+    \node[align=center,font=\sffamily\Large] (author) at (0, 0cm){
       \ituauthor
     };
   \end{tikzpicture}

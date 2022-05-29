@@ -3,28 +3,49 @@
 In this project, we created different test prioritization datasets with 
 information collected from the CI pipeline of \emph{Business Central}. These datasets included
 different features to represent changes to a codebase and criteria to prioritize tests.
-
-With these datasets, different ranking algorithms were trained and evaluated. We
-found that the best performing and most consistent approach was Coordinate Ascent
-with the training metric \texttt{NDCG@30}. The induced \emph{safe} selection with
-this approach reduces the number of tests executed by 60\%, and their execution time 
-by 90\%.
-
-In contrast to existing approaches to the problem using \emph{Learning to Rank},
-we use coverage information. We found that the best-performing dataset
-used coverage for prioritizing the training dataset. 
-
-Existing datasets in research for this problem do not include 
-coverage information. The ranking datasets used for this project 
-can be found in the accompanying repository. 
+With these datasets, different ranking algorithms were trained. For the validation dataset,
+the proposed prioritizations were evaluated.
 
 The infrastructure to collect CI history information and related coverage information,
-as well as the extraction mechanism of features can also be found in the accompanying 
-repository of this project. Such tooling can be used to increase the strength and confidence on the 
+as well as the extraction mechanism of features can be found in the accompanying 
+repository of this project. Such tooling can be used to increase the strength and confidence of the 
 evaluation here presented by adding more samples and extending 
-the time span from which the dataset is collected. 
+the time from which the dataset is collected. 
 
-Having a data model for the changes a developer makes in a codebase increases
-the insight that can be obtained for future analysis of this CI pipeline.
+We also provide the ranking datasets used for this project in the 
+accompanying repository. In contrast to existing datasets
+for the prioritization problem, we include coverage information properties.
+
+We proceed to discuss the different research questions stated in chapter \ref{s:introduction}.
+
+\section{RQ1: Which of the ranking techniques yields the best prioritization results?}
+From the evaluated algorithms, we found that the 
+best performing and most consistent approach was Coordinate Ascent
+with the training metric \texttt{NDCG@30}.
+
+For this algorithm, across the different datasets considered, the average NAPFD value obtained was 82\%.
+For the \texttt{CP-NCI} dataset, the average NAPFD value obtained was 86\%.
+
+\section{RQ2: How much could we reduce the number of tests and their execution time?}
+For the best configurations of Coordinate Ascent described for \textbf{RQ1},
+the induced \emph{safe} selection was 40\% the size of the complete test suite.
+This means that for this dataset, the CI pipeline would execute 60\% fewer tests.
+
+The corresponding execution time for the proposed selected tests  is 10\% of the execution time
+of the complete test suite.
+
+\section{RQ3: What is the effect of using coverage information for \emph{Learning to Rank} techniques?}
+
+In contrast to existing \emph{Learning to Rank} approaches to the problem,
+we use coverage information. We found that the best-performing dataset was \texttt{CP-NCI},
+which uses coverage for prioritizing the training dataset, but does not use it as part
+of the features that identify each test. 
+
+\texttt{CP-NCI} consistently achieved better results in every algorithm and
+configuration. This suggests that for this pipeline there exists a correlation between a good prioritization
+in regards to test prioritization metrics and a prioritization that executes lines covered by the changes first. 
+
+However, adding coverage information as part of each test increases the dimensionality. Increasing the dimensions of the input 
+space requires more training samples to obtain reliable results. This could explain why \texttt{CP-CI} performed worse than \texttt{CP-NCI}.
 
 \input{thesis/05-Conclusion/threats-to-validity}%

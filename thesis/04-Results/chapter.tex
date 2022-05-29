@@ -1,8 +1,8 @@
 \chapter{Results and Evaluation}\label{s:results}
 
-\section{Experiment setup}
+\section{Experiment setup}\label{s:results-experimentsetup}
 
-The collection process was executed over a week. We retrieved information from
+The collection process was executed for over a week. We retrieved information from
 172 real CI jobs from the pipeline under study. We submitted two coverage-collecting jobs 
 to the build system and collected the coverage traces.
 
@@ -18,7 +18,7 @@ contains around 18000 tests.
 It is worth comparing the size of this dataset with the provided datasets from the literature.
 Spieker et. al. in \cite{DBLP:journals/corr/abs-1811-04122} use the \emph{Paint Control} dataset consisting of 180 cycles
 with an average of 65 tests each.  In \cite{Bertolino2020LearningtoRankVR}, Bertolino, et. al. consider datasets
-of 522 cycles with an average of 22 tests each, which they created from the Apache Commons projects 
+of 522 cycles with an average of 22 tests each, which they created from the Apache Commons project's 
 commit history.
 
 The training of the different \emph{Learning to Rank} algorithms was performed with the
@@ -27,7 +27,7 @@ was performed with the High-Performance Cluster from the IT University of Copenh
 required for each of the training jobs were 115GB of RAM, which resulted in a training time with an upper limit of 2 hours
 for nodes with processors with over 32 cores.
 
-Using the trained models and obtaining the evaluation metrics was lightweight to perform on
+Using the trained models to produce a prioritization was lightweight to perform on
 a regular computer. This negligible process would be the overhead that the CI pipeline would have to execute
 to obtain the proposed selections of these approaches.
 
@@ -56,8 +56,8 @@ from a prioritization we use the following criteria:
     \item An above 50\% average selection \texttt{50-SEL}: we take tests from the prioritization until the average of their \emph{inclusiveness} is at least 50\%.
 \end{itemize}
 
-These selections are considered to support the research question \textbf{RQ2}, to obtain
-concrete quantities of the number of tests that could be omitted from execution
+These selections were considered to support the research question \textbf{RQ2}, to obtain
+definite quantities of the number of tests that could be omitted from execution
 in this pipeline.
 
 For a complete set of values shown in the distribution plots and more evaluation metrics, see appendix \ref{sec:appendix-evaluation-results}

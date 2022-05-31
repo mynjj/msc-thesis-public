@@ -1,14 +1,14 @@
 \chapter{Method}\label{s:method}
-To use \emph{Learning to Rank} approaches in our context we require to:
+The main steps required to use \emph{Learning to Rank} approaches in our context are:
 \begin{itemize}
     \item Collect CI jobs, along with information on the tests executed. Since we are also using coverage information, we also need to collect this information.
     \item Obtain vectors representing each test execution for each change to the codebase. These vectors represent the \emph{queries} in the context of \emph{Learning to Rank}.
     \item Label the training dataset by assigning rankings to each. These labels should reflect prioritizing failing tests, the remaining tests could be prioritized with different criteria.
     \item Train the models with the different parameters that could be considered for each. This training is performed with the training dataset produced after representing each query and assigning priorities to them.
-    \item Use the models to obtain rankings for the validation dataset. With these prioritizations, we can obtain the different evaluation metrics that we require to answer our research questions.
+    \item Use the models to obtain rankings for the validation dataset. With these rankings, we can obtain the different evaluation metrics that we require to answer our research questions.
 \end{itemize}
 
-In the remainder of this chapter, we discuss more details of these stages.
+In the remainder of this chapter, we discuss more details of these steps.
 
 \input{thesis/03-Method/collecting-dataset}
 \input{thesis/03-Method/characterizing-test-runs}

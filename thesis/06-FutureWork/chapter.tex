@@ -6,7 +6,7 @@ This work focused on an offline evaluation of the techniques. For an online impl
 other technical challenges and practical considerations remain.
 
 So far in our discussion, we did not tie how proposing a prioritization
-with these techniques relates to how they are executed by the DME system explained
+with these techniques relates to how they are executed by the DME system, which is explained
 in section \ref{s:bc-ci-dme}.
 
 In this section, we outline the required changes, and possible strategies to use
@@ -25,8 +25,8 @@ only required by this task. By doing so recursively we can remove entire paths o
 job's execution.
 
 For clarity, see figure \ref{f:conc-fut-dag-removingtask}, where a DAG representing the dependencies of a job's 
-execution is given. Filled with black are the test tasks that after the selection
-algorithm, had no tests to execute. Filled with gray are the tasks that were only
+execution is given. Nodes filled with black are the test tasks that after the selection
+algorithm, had no tests to execute. Nodes filled with gray are the tasks that were only
 required for such tests, and therefore could be removed.
 
 \begin{figure}
@@ -77,7 +77,7 @@ this CI pipeline.
 \section{Further evaluation of test prioritization techniques}\label{s:future-evalp}
 Reducing the number of tests considered for each job execution for our training
 dataset would allow for a larger timespan to be considered in our evaluation.
-As each job would become more manageable for the learning algorithms and feature
+As each job can become more manageable for the learning algorithms and feature
 extraction infrastructure. 
 
 For instance, in this project, we were not able
@@ -92,7 +92,7 @@ Other approaches that avoid retraining like Reinforcement Learning could be
 leveraged and be the subject of future work with the produced dataset, although
 comparison in existing literature favors \emph{Learning to Rank} approaches \cite{Bertolino2020LearningtoRankVR}.
 
-In regards to \emph{Learning to Rank} approaches, more properties could be
+In regards to \emph{Learning to Rank} approaches, more properties can be
 obtained to give a vector representation of a codebase change and tests. 
 For instance, in \cite{Bertolino2020LearningtoRankVR}, Bertolino, et. al. propose more 
 code metrics that were not in scope for this project. Examples include 

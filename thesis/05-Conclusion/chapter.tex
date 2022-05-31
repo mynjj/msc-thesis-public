@@ -1,8 +1,9 @@
 \chapter{Conclusion}
 
 In this project, we created different test prioritization datasets with 
-information collected from the CI pipeline of \emph{Business Central}. These datasets included
-different features to represent changes to a codebase and criteria to prioritize tests.
+information collected from the CI pipeline of \emph{Business Central}. These datasets were obtained
+considering different features to represent changes to a codebase and criteria to prioritize tests.
+In particular, we used features related to test history, AL properties of the change, and coverage information.
 With these datasets, different ranking algorithms were trained. For the validation dataset,
 the proposed prioritizations were evaluated.
 
@@ -18,15 +19,15 @@ for the prioritization problem, we include coverage information properties.
 
 We proceed to discuss the different research questions stated in chapter \ref{s:introduction}.
 
-\section{RQ1: Which of the ranking techniques yields the best prioritization results?}
-From the evaluated algorithms, we found that the 
+\paragraph{RQ1: Which of the ranking techniques yields the best prioritization results?}
+The results of our evaluations show that the
 best performing and most consistent approach was Coordinate Ascent
 with the training metric \texttt{NDCG@30}.
 
 For this algorithm, across the different datasets considered, the average NAPFD value obtained was 82\%.
 For the \texttt{CP-NCI} dataset, the average NAPFD value obtained was 86\%.
 
-\section{RQ2: How much could we reduce the number of tests and their execution time?}
+\paragraph{RQ2: To what extent the number of tests and their execution time can be reduced?}
 For the best configurations of Coordinate Ascent described for \textbf{RQ1},
 the induced \emph{safe} selection was 40\% the size of the complete test suite.
 This means that for this dataset, the CI pipeline would execute 60\% fewer tests.
@@ -34,9 +35,9 @@ This means that for this dataset, the CI pipeline would execute 60\% fewer tests
 The corresponding execution time for the proposed selected tests  is 10\% of the execution time
 of the complete test suite.
 
-\section{RQ3: What is the effect of using coverage information for \emph{Learning to Rank} techniques?}
+\paragraph{RQ3: What is the effect of using coverage information for \emph{Learning to Rank} techniques?}
 
-In contrast to existing \emph{Learning to Rank} approaches to the problem,
+In contrast to existing \emph{Learning to Rank} approaches for this problem,
 we use coverage information. We found that the best-performing dataset was \texttt{CP-NCI},
 which uses coverage for prioritizing the training dataset, but does not use it as part
 of the features that identify each test. 

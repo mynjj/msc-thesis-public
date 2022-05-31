@@ -5,12 +5,11 @@ the threats to the validity of the evaluation. The most relevant threat
 is a biased dataset.
 
 As explained in section \ref{s:results-experimentsetup}, the dataset was 
-collected over a week. Also, as previously explained, the size of 
-the collected dataset and test suite restricted the training of the ranking
-algorithms.
-
-Among some of the reasons this could have biased the evaluation, is that
-a week is a short time to be representative of the overall test execution dynamics.
+collected over a week due to time and processing constraints.
+Although the collected data includes around 18000 tests for each of the 172
+executions, which is larger than existing datasets in the related work, there
+can be bias. A week can be a short time to be representative of the
+overall test execution dynamics for this pipeline.
 
 For example, a developer working on a feature may re-run the pipeline and continuously
 fail the same set of related tests. Given that history features are used, the learning algorithms

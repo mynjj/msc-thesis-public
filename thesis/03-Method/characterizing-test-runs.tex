@@ -1,10 +1,11 @@
 \section{Representing tests and codebase changes by a vector}\label{s:method-characterizing-testruns}
 
-For each of the collected CI jobs, we obtain features to characterize
-the changes made by the developer, for each of the executed tests in the job.
+For each of the collected CI jobs, we obtain feature vectors, representing
+both: the changes made by the developer, and each of the executed tests.
 
-We consider three categories of properties used to obtain the vector
-representation of a test's execution:
+Each of the features in this vector refers to different properties, for which
+we consider the following three categories:
+
 \begin{itemize}
     \item Properties of the change to the AL codebase: Properties related to the changes of the AL files in the codebase.
     \item Test history properties: Properties related to the historical behavior of the test.
@@ -32,7 +33,7 @@ AL codebase:
 \end{itemize}
 
 These quantities represent numerically the typical changes experienced in the AL DSL. These properties are analogous to
-the \emph{Program size} and \emph{Object-oriented} properties used by Bertolino et. al. in \cite{Bertolino2020LearningtoRankVR},
+the \emph{Program size} and \emph{Object-oriented} properties used in literature \cite{Bertolino2020LearningtoRankVR}\cite{Busjaeger2016LearningFT},
 which are not directly applicable to our case.
 
 \subsection{Test history properties}
@@ -42,18 +43,18 @@ For each of the tests in a job we add the following historic properties:
 \begin{itemize}
     \item Proportion of times the test has failed within the available data.
     \item From the past $k$ job executions, the proportion of times the test has failed.
-    \item Average duration of this test in previous executions.
+    \item Average duration of the test in previous executions.
 \end{itemize}
 
 \subsection{Coverage properties}
-To understand the effect that coverage information has(\textbf{RQ3}), we also consider coverage properties
+To understand the effect that coverage information has (\textbf{RQ3}), we also consider coverage properties
 to represent the changes done to the codebase for each test.
 
 Using the most recent coverage information collected previous to the given job, we compute:
 \begin{itemize}
     \item Ratio between lines covered by that test and the average.
-    \item The number of files changed that were covered by that test.
-    \item The number of lines changed that were covered by that test within different \emph{windows}.
+    \item The number of changed files that were covered by that test.
+    \item The number of changed lines that were covered by that test within different \emph{windows}.
 \end{itemize}
 
 The lines changed were not matched exactly but by \emph{windows}. If a change on a

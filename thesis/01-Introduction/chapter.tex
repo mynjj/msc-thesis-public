@@ -11,21 +11,19 @@ angles have been studied and implemented by large-scale software systems.
 
 Automated regression testing \cite{baresiregtest} is one of the main strategies widely adopted by the industry \cite{10.1007/s10606-009-9098-7},
 to ensure that changes to the code will not negatively affect the users of the system. 
-
-Automated regression testing consists of developers writing automated tests: code that executes scenarios that a user would experience
+This technique consists of developers writing automated tests: code that executes scenarios that a user would experience
 and asserts that the desired properties hold. Afterwards, when changes to the code are done,
 executing successfully the set of automated tests gives confidence that such scenarios will
-not be impacted by the change. In practice, this is an effective technique to keep the quality of the system and
-allow for its evolution. \cite{10.1007/s10606-009-9098-7}\cite{baresiregtest}
+not be impacted by the change. In practice, this is an effective technique to preserve the quality of the system while
+evolving. \cite{10.1007/s10606-009-9098-7}\cite{baresiregtest}
 
 Another challenge in software engineering consists in having an effective development process when
-working with large teams. Many strategies have also been studied, and the industry 
-consensus is to use \emph{Continuous Integration} (CI) processes.
+working with large teams. One of the solutions widely adopted by the industry is to use \emph{Continuous Integration} (CI) processes.
 
-The main idea of the CI software development process is that developers should
-integrate code changes frequently. When developers integrate their changes,
-they make other developers on the team aware of their changes. The other developers
-can then react accordingly if the change conflicts with their work.
+The main idea of the CI software development process is that developers should 
+integrate code changes frequently. When developers integrate their changes, 
+they make other developers on the team aware of these changes. If the changes
+ conflict with their work, they can react accordingly.
 
 Frequently integrating changes to the product increases the risk of making mistakes.
 For that reason, as a safeguard, the set of automated tests should be run before 
@@ -55,7 +53,7 @@ required to keep the system evolving is significant.
 
 For this project, TSP techniques are applied and evaluated for data collected from one of the CI pipelines
 of the \emph{Business Central} project. \emph{Business Central} is an Enterprise Resource Planning (ERP)
-software product by Microsoft.  The aim is to find an adequate technique for this pipeline and to 
+software product by Microsoft.  The aim is to find a suitable technique for this pipeline and to 
 propose possible directions to improve the CI cycle feedback time and effectiveness.
 
 The techniques explored are based upon previous work by Bertolino
@@ -67,7 +65,7 @@ as a criterion for these techniques.
 For clarity, we will focus on the following research questions:
 \begin{itemize}
     \item \textbf{RQ1}: Which of the ranking techniques yields the best prioritization results?
-    \item \textbf{RQ2}: How much could we reduce the number of tests and their execution time?
+    \item \textbf{RQ2}: To what extent the number of tests and their execution time can be reduced?
     \item \textbf{RQ3}: What is the effect of using coverage information for \emph{Learning to Rank} techniques?
 \end{itemize}
 

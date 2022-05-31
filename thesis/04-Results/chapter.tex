@@ -75,11 +75,11 @@ The best results for this algorithm, across the different metrics, were obtained
 use coverage information in the features, but that use the coverage prioritization we proposed. In the worst case
 for these datasets, the NAPFD of the proposed test ranking can be as low as 67\%, but as high as 99\%.
 
-Figures \ref{fig:coordinate-ascent-02-napfd} to \ref{fig:coordinate-ascent-06-napfd} show the box plot of the distribution
+Figures \ref{fig:coordinate-ascent-02-napfd} to \ref{fig:zcoordinate-ascent-06-napfd} show the box plot of the distribution
 of NAPFD values for the jobs in the validation dataset for the different training metrics. 
 
 Additionally, for \texttt{NDCG@30}, we present the distribution of values 
-across each different dataset of the \emph{time to the first failure} metric in figure \ref{fig:coordinate-ascent-06-tff}. 
+across each different dataset of the \emph{time to the first failure} metric in figure \ref{fig:kcoordinate-ascent-06-tff}. 
 
 We observe that only in the case of the dataset with coverage information and coverage prioritization, the proposed prioritization
 achieves a value as high as 88\% of the total execution time with an average of 14\%. For the remaining datasets, the first failure is detected
@@ -96,15 +96,19 @@ Regarding the induced selections, for the training metric \texttt{NDCG@30} and \
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:coordinate-ascent-02-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-02/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{DCG@10} training metric.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{DCG@10} training metric.}
+            \label{fig:coordinate-ascent-02-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:coordinate-ascent-03-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-03/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{MAP} training metric.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{MAP} training metric.}
+            \label{fig:coordinate-ascent-03-napfd}
+            }
     \end{minipage}%
 \end{figure}
 
@@ -112,15 +116,19 @@ Regarding the induced selections, for the training metric \texttt{NDCG@30} and \
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:coordinate-ascent-01-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-01/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@10} training metric.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@10} training metric.}
+        \label{fig:coordinate-ascent-01-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:coordinate-ascent-04-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-04/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@20} training metric.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@20} training metric.}
+        \label{fig:coordinate-ascent-04-napfd}
+            }
     \end{minipage}%
 \end{figure}
 
@@ -128,15 +136,19 @@ Regarding the induced selections, for the training metric \texttt{NDCG@30} and \
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:coordinate-ascent-06-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-06/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@30} training metric.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the Coordinate Ascent algorithm using the \texttt{NDCG@30} training metric.}
+        \label{fig:zcoordinate-ascent-06-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:coordinate-ascent-06-tff}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/coordinateascent-06/distribution-comparison-TimeToFirstFailure.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of times to first failure for the Coordinate Ascent algorithm using the \texttt{NDCG@30} training metric.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of times to first failure for the Coordinate Ascent algorithm using the \texttt{NDCG@30} training metric.}
+        \label{fig:kcoordinate-ascent-06-tff}
+            }
     \end{minipage}%
 \end{figure}
 
@@ -167,15 +179,20 @@ The resulting induced selections are:
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-13-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-13/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{MAP} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{MAP} training metric and 30 trees.}
+        \label{fig:lambdamart-13-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-01-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-01/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@10} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@10} training metric and 30 trees.}
+        \label{fig:lambdamart-01-napfd}
+            }
+
     \end{minipage}%
 \end{figure}
 
@@ -183,15 +200,19 @@ The resulting induced selections are:
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-02-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-02/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@10} training metric and 20 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@10} training metric and 20 trees.}
+        \label{fig:lambdamart-02-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-09-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-09/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 30 trees.}
+        \label{fig:lambdamart-09-napfd}
+            }
     \end{minipage}%
 \end{figure}
 
@@ -199,15 +220,19 @@ The resulting induced selections are:
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-10-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-10/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 20 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 20 trees.}
+        \label{fig:lambdamart-10-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-17-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-17/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@20} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@20} training metric and 30 trees.}
+        \label{fig:lambdamart-17-napfd}
+            }
     \end{minipage}%
 \end{figure}
 
@@ -215,15 +240,19 @@ The resulting induced selections are:
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-18-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-18/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@20} training metric and 20 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@20} training metric and 20 trees.}
+        \label{fig:lambdamart-18-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-21-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-21/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@30} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@30} training metric and 30 trees.}
+        \label{fig:lambdamart-21-napfd}
+            }
     \end{minipage}%
 \end{figure}
 
@@ -231,15 +260,19 @@ The resulting induced selections are:
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-22-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-22/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@30} training metric and 20 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the LambdaMART algorithm using the \texttt{NDCG@30} training metric and 20 trees.}
+        \label{fig:lambdamart-22-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:lambdamart-10-tff}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/lambdamart-10/distribution-comparison-TimeToFirstFailure.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of \emph{time to the first failure} values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 20 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of \emph{time to the first failure} values for the LambdaMART algorithm using the \texttt{DCG@10} training metric and 20 trees.}
+        \label{fig:lambdamart-10-tff}
+            }
     \end{minipage}%
 \end{figure}
 
@@ -264,24 +297,30 @@ The resulting induced selections are:
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:mart-09-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/mart-09/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the MART algorithm using the \texttt{DCG@10} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the MART algorithm using the \texttt{DCG@10} training metric and 30 trees.}
+        \label{fig:mart-09-napfd}
+            }
     \end{minipage}%
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:mart-13-napfd}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/mart-13/distribution-comparison-Selection-100-NAPFD.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of NAPFD values for the MART algorithm using the \texttt{MAP} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of NAPFD values for the MART algorithm using the \texttt{MAP} training metric and 30 trees.}
+        \label{fig:mart-13-napfd}
+            }
     \end{minipage}%
 \end{figure}
 \begin{figure}
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \label{fig:mart-09-tff}
         \includegraphics[width=0.9\textwidth]{data/evaluation/comparing-ranking-configurations/mart-09/distribution-comparison-TimeToFirstFailure.png}
-        \parbox{0.9\textwidth}{\caption{Distribution across the different datasets of \emph{time to the first failure} values for the MART algorithm using the \texttt{DCG@10} training metric and 30 trees.}}
+        \parbox{0.9\textwidth}{
+            \caption{Distribution across the different datasets of \emph{time to the first failure} values for the MART algorithm using the \texttt{DCG@10} training metric and 30 trees.}
+        \label{fig:mart-09-tff}
+            }
     \end{minipage}%
 \end{figure}
 
